@@ -1,3 +1,6 @@
+;;; Start the server, so we can connect clients
+(server-start)
+
 ;;; I prefer cmd key for meta
 (setq mac-option-key-is-meta nil
       mac-command-key-is-meta t
@@ -61,9 +64,13 @@
 ;;; -------------------- Mode-specific hooks ---------------------------
 
 (add-hook 'fundamental-mode-hook 'four-space-tabs)
-(add-hook 'python-mode-hook 'four-space-tabs)
+(add-hook 'c-mode-hook
+	  (lambda()
+	    (four-space-tabs)
+	    (c-set-style "bsd")))
 (add-hook 'python-mode-hook
-    (lambda ()
+	  (lambda ()
+	    (four-space-tabs)
 	    (setq python-indent 4)))
 
 ;;; --------------- Don't touch the auto stuff :-p ---------------------
@@ -76,6 +83,7 @@
  '(ansi-color-names-vector ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes (quote (monokai)))
  '(inhibit-startup-screen t)
+ '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
