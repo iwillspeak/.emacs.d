@@ -25,6 +25,7 @@
 
 ;;; Four space tabs
 (defun four-space-tabs()
+  (interactive)
   (setq tab-width 4)
   (setq indent-tabs-mode t)
   (setq tab-stop-list (number-sequence 4 200 4)))
@@ -35,7 +36,13 @@
 
 ;;; Nice size for the default window
 (setq default-frame-alist
-      '((width . 140) (height . 60)))
+      '((fullscreen . fullheight) (cursor-type bar)))
+(setq frame-inherited-parameters
+      '(width height))
+;; gonna have to hack this in it seems .. :-/
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (set-frame-parameter nil 'width 140)))
 
 ;;; We like line numbers, really we do
 (global-linum-mode 1)
@@ -64,6 +71,7 @@
 ;;; -------------------- Mode-specific hooks ---------------------------
 
 (add-hook 'fundamental-mode-hook 'four-space-tabs)
+(add-hook 'mustache-mode 'four-space-tabs)
 (add-hook 'c-mode-hook
 	  (lambda()
 	    (four-space-tabs)
