@@ -10,6 +10,10 @@
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+;;; Load settings done with custom, do this early so we can depend on the font
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
 ;;; Epxand region, should be pretty sweet
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -32,14 +36,12 @@
 (global-visual-line-mode t)
 
 ;;; Nice size for the default window
-(setq default-frame-alist
-      '((fullscreen . fullheight)))
-(setq frame-inherited-parameters
-      '(width height))
-;; gonna have to hack this in it seems .. :-/
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (set-frame-parameter nil 'width 140)))
+(defun get-default-height ()
+  (/ (- (display-pixel-height) 120)
+     (frame-char-height)))
+
+(add-to-list 'default-frame-alist '(width . 140))
+(add-to-list 'default-frame-alist (cons 'height (get-default-height)))
 
 ;;; We like line numbers, really we do
 (global-linum-mode 1)
@@ -77,26 +79,3 @@
 	  (lambda ()
 	    (four-space-tabs)
 	    (setq python-indent 4)))
-
-;;; --------------- Don't touch the auto stuff :-p ---------------------
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
- '(custom-enabled-themes (quote (monokai)))
- '(inhibit-startup-screen t)
- '(scroll-bar-mode nil)
- '(show-paren-mode t)
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:weight normal :height 130 :width normal :foundry "apple" :family "Monaco"))))
- '(mode-line ((t (:background "chartreuse" :foreground "gray10"))))
- '(mode-line-inactive ((t (:inherit mode-line :background "grey30" :foreground "grey80" :weight light))))
- '(powerline-active1 ((t (:inherit mode-line :background "firebrick1" :foreground "White")))))
