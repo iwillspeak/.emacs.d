@@ -36,7 +36,7 @@
 
 ;;; Nice size for the default window
 (setq default-frame-alist
-      '((fullscreen . fullheight) (cursor-type bar)))
+      '((fullscreen . fullheight)))
 (setq frame-inherited-parameters
       '(width height))
 ;; gonna have to hack this in it seems .. :-/
