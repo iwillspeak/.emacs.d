@@ -10,6 +10,14 @@
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+;;; Load themes from the themes/ directory
+(setq custom-theme-directory (concat user-emacs-directory "themes"))
+
+(dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
+  (when (file-directory-p theme-dir)
+    (add-to-list 'custom-theme-load-path path)))
+
+
 ;;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
@@ -74,8 +82,10 @@
 (add-hook 'c-mode-hook
 	  (lambda()
 	    (four-space-tabs)
-	    (c-set-style "bsd")))
+	    (c-set-style "bsd")
+	    (setq c-basic-offset 4)))
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (four-space-tabs)
 	    (setq python-indent 4)))
+(put 'upcase-region 'disabled nil)
