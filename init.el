@@ -23,6 +23,10 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+;;; Modify whatever theme has been loaded to get rid fo the 3d modeline
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
+
 ;;; Epxand region, should be pretty sweet
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -51,6 +55,8 @@
 
 (add-to-list 'default-frame-alist '(width . 140))
 (add-to-list 'default-frame-alist (cons 'height (get-default-height)))
+(add-to-list 'default-frame-alist '(top . 0))
+(add-to-list 'default-frame-alist '(left . 0))
 
 ;;; We like line numbers, really we do
 (global-linum-mode 1)
@@ -59,8 +65,8 @@
 (require 'whitespace)
 (setq whitespace-style
       '(face lines-tail trailing empty space-before-tab))
-(global-whitespace-mode t)
 (setq whitespace-trailing-regexp "\\b\\([    ]+\\)$")
+(global-whitespace-mode t)
 
 ;;; Overtype in selections
 (delete-selection-mode 1)
