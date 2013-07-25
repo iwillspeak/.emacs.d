@@ -63,9 +63,8 @@
 
 ;;; Use the `whitespace` module to highlight bad whitespace
 (require 'whitespace)
-(setq whitespace-style
-      '(face lines-tail trailing empty space-before-tab))
-(setq whitespace-trailing-regexp "\\b\\([    ]+\\)$")
+(setq whitespace-style '(face lines-tail trailing empty space-before-tab))
+(setq whitespace-trailing-regexp "\\>[^[:space:]]*\\([[:space:]]+\\)$")
 (global-whitespace-mode t)
 
 ;;; Overtype in selections
@@ -81,7 +80,7 @@
 ;;; Keybindings
 (global-unset-key (kbd "C-_"))
 (global-set-key (kbd "C-;") 'undo)
- 
+
 ;; Re-Enable Disabled Commands
 (put 'upcase-region 'disabled nil)
 
