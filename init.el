@@ -64,7 +64,7 @@
 ;;; Use the `whitespace` module to highlight bad whitespace
 (require 'whitespace)
 (setq whitespace-style '(face lines-tail trailing empty space-before-tab))
-(setq whitespace-trailing-regexp "\\>[^[:space:]]*\\([[:space:]]+\\)$")
+(setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
 (global-whitespace-mode t)
 
 ;;; Overtype in selections
