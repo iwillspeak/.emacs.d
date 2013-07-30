@@ -9,12 +9,12 @@
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-
+ 
 ;; This little function ensures that we have the packages installed
 (defun require-package (packagename)
   (unless (package-installed-p packagename)
     (package-install packagename)))
-
+ 
 ;; Load themes from the themes/ directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
 (dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
@@ -45,6 +45,7 @@
 ;; Get rid of some of the widow clutter
 (set-scroll-bar-mode nil)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (setq inhibit-startup-screen t)
  
  
@@ -52,7 +53,7 @@
  
 ;; Default to looking in the home directory, not sure why emacs doesn't on win
 (setq default-directory "~/")
-
+ 
 ;; Nice wrapping of things
 (global-visual-line-mode t)
  
