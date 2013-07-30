@@ -93,6 +93,7 @@
 ;; Bind expand region, pretty useful key combination
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-+") 'er/contract-region)
  
 ;; Multiple Cursors
 (require-package 'multiple-cursors)
@@ -113,8 +114,12 @@
 ;; Nice modeline
 (require-package 'powerline)
 (powerline-default-theme)
- 
- 
+
+;; Automatically Paired Braces
+(require-package 'autopair)
+(autopair-global-mode)
+
+
 ;;; -------------------- Mode-specific hooks ---------------------------
  
 ;; Four space tabs
