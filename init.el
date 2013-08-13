@@ -141,7 +141,8 @@
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (four-space-tabs)
-	    (setq python-indent 4)))
+	    (setq python-indent 4))
+            (setq indent-tabs-mode nil))
 
 
 ;;; -------------------------- Final Settings --------------------------
