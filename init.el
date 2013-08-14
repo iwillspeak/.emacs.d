@@ -25,6 +25,13 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+;; Allow modes to be stored in a subdirectory and automatically loaded
+(setq custom-mode-directory (concat user-emacs-directory "modes"))
+(when (file-directory-p custom-mode-directory)
+  (dolist (mode-file
+		   (directory-files custom-mode-directory t "\\-mode\\.el$" t))
+	(load-file mode-file)))
+
 ;; Nice size for the default window
 (defun get-default-height ()
   (/ (- (display-pixel-height) 120)
