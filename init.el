@@ -17,9 +17,10 @@
 
 ;; Load themes from the themes/ directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
-(dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
-  (when (file-directory-p theme-dir)
-    (add-to-list 'custom-theme-load-path path)))
+(when (file-directory-p custom-theme-directory)
+  (dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
+	(when (file-directory-p theme-dir)
+	  (add-to-list 'custom-theme-load-path path))))
 
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
