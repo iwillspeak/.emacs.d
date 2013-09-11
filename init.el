@@ -51,8 +51,9 @@
 (set-face-attribute 'mode-line-inactive nil :box nil)
  
 ;; Get rid of some of the widow clutter
-(set-scroll-bar-mode nil)
-(tool-bar-mode -1)
+(when window-system
+  (set-scroll-bar-mode nil)
+  (tool-bar-mode -1))
 (menu-bar-mode -1)
 (setq inhibit-startup-screen t)
  
@@ -87,10 +88,10 @@
  
 ;; Control back up files
 (setq custom-backup-directory (concat user-emacs-directory "backups"))
-(setq backup-direcotry-alist
+(setq backup-directory-alist
 	  `(("." . ,(expand-file-name custom-backup-directory))))
 (setq vc-macke-backup-files t)
-
+ 
 ;; Nicer keybinding for undo
 (global-unset-key (kbd "C-_"))
 (global-set-key (kbd "C-;") 'undo)
