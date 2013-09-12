@@ -125,6 +125,10 @@
 (setq whitespace-style '(face lines-tail trailing empty space-before-tab))
 (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
 (global-whitespace-mode t)
+
+;; Prevent accidental minimisation :-)
+(when window-system
+  (global-unset-key (kbd "C-z")))
  
 ;; Nice modeline
 (require-package 'powerline)
