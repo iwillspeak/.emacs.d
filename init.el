@@ -13,7 +13,11 @@
 ;; This little function ensures that we have the packages installed
 (defun require-package (packagename)
   (unless (package-installed-p packagename)
-    (package-install packagename)))
+    (condition-case nil
+		(package-install packagename)
+	  (error
+	   (package-refresh-contents)
+	   (package-install packagename)))))
  
 ;; Load themes from the themes/ directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
@@ -80,6 +84,10 @@
  
 ;; Nice Highlighting for parens
 (show-paren-mode)
+
+;; Better completion of things
+(icomplete-mode)
+(ido-mode)
  
 ;; Auto refresh buffers, all of them
 (global-auto-revert-mode 1)
@@ -102,7 +110,7 @@
 		  (interactive)
 		  (join-line -1)))
  
- 
+
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
 ;; Bind expand region, pretty useful key combination
@@ -125,10 +133,6 @@
 (setq whitespace-style '(face lines-tail trailing empty space-before-tab))
 (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
 (global-whitespace-mode t)
-
-;; Prevent accidental minimisation :-)
-(when window-system
-  (global-unset-key (kbd "C-z")))
  
 ;; Nice modeline
 (require-package 'powerline)
