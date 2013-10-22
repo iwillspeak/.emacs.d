@@ -171,6 +171,9 @@
 			(four-space-tabs)
 			(setq indent-tabs-mode nil)
 			(setq python-indent 4)))
+
+;; treat bat files as dos files. Not sure why this isn't default...
+(add-to-list 'auto-mode-alist '("\\.bat$\\'" . dos-mode))
  
  
 ;;; -------------------------- Final Settings --------------------------
