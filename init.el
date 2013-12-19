@@ -144,6 +144,17 @@
 (require-package 'autopair)
 (autopair-global-mode)
  
+;;; ---------------------- General Commands ---------------------------
+
+(defun move-file ()
+  (interactive)
+  (let ((old-name (buffer-file-name)))
+	(if (not (and old-name (file-exists-p old-name)))
+		(message "Can't move, buffer isn't visiting a file")
+	  (let ((new-name (read-file-name "New name: " old-name)))
+		(rename-file old-name new-name t)
+		(set-visited-file-name new-name t t)))))
+(global-set-key (kbd "C-x r") 'move-file)
  
 ;;; -------------------- Mode-specific hooks ---------------------------
  
