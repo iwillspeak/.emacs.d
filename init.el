@@ -184,7 +184,7 @@
 			(setq python-indent 4)))
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
-(add-to-list 'auto-mode-alist '("\\.bat$\\'" . dos-mode))
+(add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
  
 ;;; -------------------------- Final Settings --------------------------
  
