@@ -113,6 +113,9 @@
 ;; I pretty much never want C-Z to do what it does
 (global-unset-key (kbd "C-Z"))
 
+;; Visual Studio does some things right...
+(global-set-key (kbd "<f5>") 'recompile)
+
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
 ;; Bind expand region, pretty useful key combination
