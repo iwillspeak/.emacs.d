@@ -111,7 +111,7 @@
 		  (join-line -1)))
 
 ;; I pretty much never want C-Z to do what it does
-(global-unset-key (kbd "C-Z"))
+(global-unset-key (kbd "C-z"))
 
 ;; Visual Studio does some things right...
 (global-set-key (kbd "<f5>") 'recompile)
