@@ -115,6 +115,7 @@
 
 ;; Visual Studio does some things right...
 (global-set-key (kbd "<f5>") 'recompile)
+(setq compilation-scroll-output 'first-error)
 
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
