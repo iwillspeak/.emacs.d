@@ -68,8 +68,8 @@
 (setq default-directory "~/")
  
 ;; Nice wrapping of things
-(global-visual-line-mode t)
- 
+(global-visual-line-mode 't)
+
 ;; We like line numbers, really we do
 (global-linum-mode 1)
  
@@ -186,6 +186,12 @@
 			(four-space-tabs)
 			(setq indent-tabs-mode nil)
 			(setq python-indent 4)))
+(add-hook 'csharp-mode-hook
+		  (lambda ()
+			(setq tab-width 4)
+			(setq indent-tabs-mode nil)
+			(setq c-basic-offset 4)))
+
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
@@ -196,6 +202,5 @@
 (require-package 'diminish)
 (diminish 'global-whitespace-mode)
 (diminish 'whitespace-mode)
-(diminish 'global-visual-line-mode)
 (diminish 'visual-line-mode)
 (diminish 'autopair-mode)
