@@ -65,7 +65,8 @@
 ;;; --------------------- Set Up Builtin Modes ---------------------------
  
 ;; Default to looking in the home directory, not sure why emacs doesn't on win
-(setq default-directory "~/")
+(if (eq system-type 'windows-nt)
+	(setq default-directory "~/"))
  
 ;; Nice wrapping of things
 (global-visual-line-mode 't)
@@ -147,14 +148,11 @@
 ;; Automatically Paired Braces
 (require-package 'autopair)
 (autopair-global-mode)
-
+ 
 ;; Git in the gutter
 (require-package 'git-gutter-fringe)
-(git-gutter-mode 1)
+(global-git-gutter-mode 1)
 
-;; Csharp editing
-(require-package 'csharp-mode)
- 
 ;;; ---------------------- General Commands ---------------------------
 
 (defun move-file ()
@@ -202,7 +200,8 @@
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
- 
+(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+
 ;;; -------------------------- Final Settings --------------------------
  
 ;; Diminish modes that we don't want cluttering up the powerline
