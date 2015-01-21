@@ -147,6 +147,13 @@
 ;; Automatically Paired Braces
 (require-package 'autopair)
 (autopair-global-mode)
+
+;; Git in the gutter
+(require-package 'git-gutter-fringe)
+(git-gutter-mode 1)
+
+;; Csharp editing
+(require-package 'csharp-mode)
  
 ;;; ---------------------- General Commands ---------------------------
 
@@ -188,9 +195,9 @@
 			(setq python-indent 4)))
 (add-hook 'csharp-mode-hook
 		  (lambda ()
-			(setq tab-width 4)
+			(c-like-indent)
 			(setq indent-tabs-mode nil)
-			(setq c-basic-offset 4)))
+			(autopair-mode -1)))
 
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
