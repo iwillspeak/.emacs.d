@@ -1,10 +1,6 @@
 ;;; --------------------- Initial Settings ----------------------------
  
-;; Apply any OS Local Settings First
-(setq os-local-settings (concat user-emacs-directory "oslocal.el"))
-(load os-local-settings)
- 
-;; Next up enable the package manager
+;; First set up the package manager
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -18,6 +14,10 @@
 	  (error
 	   (package-refresh-contents)
 	   (package-install packagename)))))
+
+;; Next apply any OS Local Settings
+(setq os-local-settings (concat user-emacs-directory "oslocal.el"))
+(load os-local-settings)
  
 ;; Load themes from the themes/ directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
