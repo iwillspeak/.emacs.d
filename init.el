@@ -150,8 +150,17 @@
 (autopair-global-mode)
  
 ;; Git in the gutter
-(require-package 'git-gutter-fringe)
-(global-git-gutter-mode 1)
+;; (require-package 'git-gutter-fringe)
+;; (global-git-gutter-mode 1)
+
+;; Useful Modes
+
+(require-package 'git-commit-mode)
+(require-package 'git-rebase-mode)
+(require-package 'gitconfig-mode)
+(require-package 'gitignore-mode)
+(require-package 'markdown-mode)
+(require-package 'deft)
 
 ;;; ---------------------- General Commands ---------------------------
 
@@ -201,6 +210,9 @@
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+
+;; Markdown extensions
+(add-to-list 'auto-mode-alist '("\\.m(d|down)" . markdown-mode))
 
 ;;; -------------------------- Final Settings --------------------------
  
