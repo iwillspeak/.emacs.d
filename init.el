@@ -148,6 +148,12 @@
 ;; Automatically Paired Braces
 (require-package 'autopair)
 (autopair-global-mode)
+
+;; Notes Mode
+(require-package 'deft)
+(setq 'deft-extension "md")
+(setq 'deft-text-mode 'markdown-mode)
+(global-set-key [f8] 'deft)
  
 ;; Git in the gutter
 ;; (require-package 'git-gutter-fringe)
@@ -160,7 +166,6 @@
 (require-package 'gitconfig-mode)
 (require-package 'gitignore-mode)
 (require-package 'markdown-mode)
-(require-package 'deft)
 
 ;;; ---------------------- General Commands ---------------------------
 
