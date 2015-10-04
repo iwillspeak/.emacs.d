@@ -6,6 +6,10 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
  
+;; UTF-8 All the Things
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
 ;; This little function ensures that we have the packages installed
 (defun require-package (packagename)
   (unless (package-installed-p packagename)
@@ -151,8 +155,8 @@
 
 ;; Notes Mode
 (require-package 'deft)
-(setq 'deft-extension "md")
-(setq 'deft-text-mode 'markdown-mode)
+(setq deft-extension "md")
+(setq deft-text-mode 'markdown-mode)
 (global-set-key [f8] 'deft)
  
 ;; Git in the gutter
