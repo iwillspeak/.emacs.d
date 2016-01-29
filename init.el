@@ -6,10 +6,6 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
  
-;; UTF-8 All the Things
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-
 ;; This little function ensures that we have the packages installed
 (defun require-package (packagename)
   (unless (package-installed-p packagename)
@@ -22,7 +18,7 @@
 ;; Next apply any OS Local Settings
 (setq os-local-settings (concat user-emacs-directory "oslocal.el"))
 (load os-local-settings)
- 
+
 ;; Load themes from the themes/ directory
 (setq custom-theme-directory (concat user-emacs-directory "themes"))
 (when (file-directory-p custom-theme-directory)
@@ -40,6 +36,13 @@
   (dolist (mode-file
 		   (directory-files custom-mode-directory t "\\-mode\\.el$" t))
 	(load-file mode-file)))
+
+;; Load in any custom keyboard macros
+(setq custom-macros-directory (concat user-emacs-directory "macros"))
+(when (file-directory-p custom-macros-directory)
+  (dolist (macros-file
+		   (directory-files custom-macros-directory t "\\.el$" t))
+	(load-file macros-file)))
  
 ;; Nice size for the default window
 (defun get-default-height ()
@@ -122,6 +125,9 @@
 (global-set-key (kbd "<f5>") 'recompile)
 (setq compilation-scroll-output 'first-error)
 
+;; Setup window splitting when diffing
+(setq ediff-split-window-function 'split-window-horizontally)
+
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
 ;; Bind expand region, pretty useful key combination
@@ -141,7 +147,7 @@
  
 ;; Use the `whitespace` module to highlight bad whitespace
 (require-package 'whitespace)
-(setq whitespace-style '(face lines-tail trailing empty space-before-tab))
+(setq whitespace-style '(face trailing empty space-before-tab))
 (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
 (global-whitespace-mode t)
  
@@ -153,7 +159,10 @@
 (require-package 'autopair)
 (autopair-global-mode)
 
-;; Notes Mode
+;; Omnisharp
+(require-package 'omnisharp)
+
+;; Notes Buffer Support
 (require-package 'deft)
 (setq deft-extension "md")
 (setq deft-text-mode 'markdown-mode)
@@ -163,8 +172,11 @@
 ;; (require-package 'git-gutter-fringe)
 ;; (global-git-gutter-mode 1)
 
-;; Useful Modes
+;; Trees on the size
+(require-package 'neotree)
+(global-set-key (kbd "C-(") 'neotree-toggle)
 
+;; Useful Modes
 (require-package 'git-commit-mode)
 (require-package 'git-rebase-mode)
 (require-package 'gitconfig-mode)
