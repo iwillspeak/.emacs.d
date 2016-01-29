@@ -15,9 +15,7 @@
  '(custom-safe-themes
    (quote
 	("badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" default)))
- '(package-selected-packages
-   (quote
-	(gruvbox-theme neotree jade-mode flappymacs omnisharp powerline multiple-cursors markdown-mode gitignore-mode gitconfig-mode git-rebase-mode git-commit-mode expand-region diminish deft cygwin-mount csharp-mode autopair))))
+ '(package-selected-packages (quote (magit cygwin-mount csharp-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
