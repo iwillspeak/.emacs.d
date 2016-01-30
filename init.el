@@ -45,10 +45,17 @@
 	(load-file macros-file)))
  
 ;; Nice size for the default window
+(set 'frame-y-padding
+	 (if (eq system-type 'windows-nt)
+		 80
+	   120))
 (defun get-default-height ()
-  (/ (- (display-pixel-height) 120)
+  (/ (- (display-pixel-height) frame-y-padding)
      (frame-char-height)))
-(add-to-list 'default-frame-alist '(width . 140))
+(defun get-min-width ()
+  (/ (- (display-pixel-width) 50)
+	 (frame-char-width)))
+(add-to-list 'default-frame-alist (cons 'width (min 140 (get-min-width))))
 (add-to-list 'default-frame-alist (cons 'height (get-default-height)))
 (add-to-list 'default-frame-alist '(top . 0))
 (add-to-list 'default-frame-alist '(left . 0))
