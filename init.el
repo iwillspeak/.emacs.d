@@ -5,15 +5,24 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
- 
+
 ;; This little function ensures that we have the packages installed
-(defun require-package (packagename)
+(defun ensure-installed (packagename)
   (unless (package-installed-p packagename)
     (condition-case nil
 		(package-install packagename)
 	  (error
 	   (package-refresh-contents)
 	   (package-install packagename)))))
+
+;; Use `use-package`
+(ensure-installed 'use-package)
+(require 'use-package)
+
+;;TODO: remove this hack
+(defun require-package (packagename)
+  (ensure-installed packagename)
+  (use-package packagename))
 
 ;; Next apply any OS Local Settings
 (setq os-local-settings (concat user-emacs-directory "oslocal.el"))
@@ -138,50 +147,66 @@
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
 ;; Bind expand region, pretty useful key combination
-(require-package 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-+") 'er/contract-region)
+(ensure-installed 'expand-region)
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)
+	 ("C-+" . er/contract-region)))
  
 ;; Multiple Cursors
-(require-package 'multiple-cursors)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-=") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
-(global-unset-key (kbd "M-<down-mouse-1>"))
-(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
- 
+(ensure-installed 'multiple-cursors)
+(use-package multiple-cursors
+  :init (global-unset-key (kbd "M-<down-mouse-1>"))
+  :commands mc/edit-lines
+  :bind (("C->" . mc/mark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)
+	 ("C-c C-=" . mc/mark-all-like-this)
+	 ("C-M->" . mc/skip-to-next-like-this)
+	 ("C-M-<" . mc/skip-to-previous-like-this)
+	 ("M-<mouse-1>" . mc/add-cursor-on-click)))
+
 ;; Use the `whitespace` module to highlight bad whitespace
-(require-package 'whitespace)
-(setq whitespace-style '(face trailing empty space-before-tab))
-(setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
-(global-whitespace-mode t)
+(ensure-installed 'whitespace)
+(use-package whitespace
+  :init
+  (setq whitespace-style '(face trailing empty space-before-tab))
+  (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
+  :defer 2
+  :config
+  (global-whitespace-mode t))
+
+;; Whitespace chars
+(ensure-installed 'leerzeichen)
+(use-package leerzeichen
+  :commands leerzeichen-mode)
  
 ;; Nice modeline
-(require-package 'powerline)
-(powerline-default-theme)
- 
+(ensure-installed 'powerline)
+(use-package powerline
+  :config (powerline-default-theme))
+
 ;; Automatically Paired Braces
-(require-package 'autopair)
-(autopair-global-mode)
+(ensure-installed 'autopair)
+(use-package autopair
+  :config (autopair-global-mode))
 
 ;; Omnisharp
-(require-package 'omnisharp)
+(ensure-installed 'omnisharp)
+(use-package omnisharp)
 
 ;; Notes Buffer Support
-(require-package 'deft)
-(setq deft-extension "md")
-(setq deft-text-mode 'markdown-mode)
-(global-set-key [f8] 'deft)
+(ensure-installed 'deft)
+(use-package deft
+  :init (setq deft-default-extension "md")
+  :bind ([f8] . deft))
  
 ;; Git in the gutter
 ;; (require-package 'git-gutter-fringe)
 ;; (global-git-gutter-mode 1)
 
 ;; Trees on the size
-(require-package 'neotree)
-(global-set-key (kbd "C-(") 'neotree-toggle)
+(ensure-installed 'neotree)
+(use-package neotree
+  :bind ("C-(" . neotree-toggle))
 
 ;; Useful Modes
 (require-package 'git-commit)
@@ -229,10 +254,12 @@
 			(setq indent-tabs-mode nil)
 			(setq python-indent 4)))
 (add-hook 'csharp-mode-hook
-		  (lambda ()
-			(c-like-indent)
-			(setq indent-tabs-mode nil)
-			(autopair-mode -1)))
+	  (lambda ()
+	    (omnisharp-mode)
+	    (c-like-indent)
+	    (setq indent-tabs-mode nil)
+	    (autopair-mode -1)
+	    (local-set-key (kbd "C-.") 'omnisharp-run-code-action-refactoring)))
 
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
