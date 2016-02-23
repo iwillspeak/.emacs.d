@@ -6,23 +6,14 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
-;; This little function ensures that we have the packages installed
-(defun ensure-installed (packagename)
-  (unless (package-installed-p packagename)
-    (condition-case nil
-		(package-install packagename)
-	  (error
-	   (package-refresh-contents)
-	   (package-install packagename)))))
-
 ;; Use `use-package`
-(ensure-installed 'use-package)
+(unless (package-installed-p 'use-package)
+  (condition-case nil
+      (package-install 'use-package)
+    (error
+     (package-refresh-contents)
+     (package-install 'use-package))))
 (require 'use-package)
-
-;;TODO: remove this hack
-(defun require-package (packagename)
-  (ensure-installed packagename)
-  (use-package packagename))
 
 ;; Next apply any OS Local Settings
 (setq os-local-settings (concat user-emacs-directory "oslocal.el"))
@@ -147,14 +138,14 @@
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
  
 ;; Bind expand region, pretty useful key combination
-(ensure-installed 'expand-region)
 (use-package expand-region
+  :ensure t
   :bind (("C-=" . er/expand-region)
 	 ("C-+" . er/contract-region)))
  
 ;; Multiple Cursors
-(ensure-installed 'multiple-cursors)
 (use-package multiple-cursors
+  :ensure t
   :init (global-unset-key (kbd "M-<down-mouse-1>"))
   :commands mc/edit-lines
   :bind (("C->" . mc/mark-next-like-this)
@@ -165,8 +156,8 @@
 	 ("M-<mouse-1>" . mc/add-cursor-on-click)))
 
 ;; Use the `whitespace` module to highlight bad whitespace
-(ensure-installed 'whitespace)
 (use-package whitespace
+  :ensure t
   :init
   (setq whitespace-style '(face trailing empty space-before-tab))
   (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
@@ -175,45 +166,46 @@
   (global-whitespace-mode t))
 
 ;; Whitespace chars
-(ensure-installed 'leerzeichen)
 (use-package leerzeichen
+  :ensure t
   :commands leerzeichen-mode)
  
 ;; Nice modeline
-(ensure-installed 'powerline)
 (use-package powerline
+  :ensure t
   :config (powerline-default-theme))
 
 ;; Automatically Paired Braces
-(ensure-installed 'autopair)
 (use-package autopair
+  :ensure t
   :config (autopair-global-mode))
 
 ;; Omnisharp
-(ensure-installed 'omnisharp)
-(use-package omnisharp)
+(use-package omnisharp :ensure t)
 
 ;; Notes Buffer Support
-(ensure-installed 'deft)
 (use-package deft
+  :ensure t
   :init (setq deft-default-extension "md")
   :bind ([f8] . deft))
  
 ;; Git in the gutter
-;; (require-package 'git-gutter-fringe)
+;; (ensure-installed 'git-gutter-fringe)
 ;; (global-git-gutter-mode 1)
 
 ;; Trees on the size
-(ensure-installed 'neotree)
 (use-package neotree
+  :ensure t
   :bind ("C-(" . neotree-toggle))
 
 ;; Useful Modes
-(require-package 'git-commit)
-(require-package 'gitconfig-mode)
-(require-package 'gitignore-mode)
-(require-package 'magit)
-(require-package 'markdown-mode)
+(use-package magit
+  :ensure t
+  :mode "COMMIT_EDITMSG")
+(use-package git-commit :ensure t)
+(use-package gitconfig-mode :ensure t)
+(use-package gitignore-mode :ensure t)
+(use-package markdown-mode :ensure t)
 
 ;;; ---------------------- General Commands ---------------------------
 
@@ -272,8 +264,19 @@
 ;;; -------------------------- Final Settings --------------------------
  
 ;; Diminish modes that we don't want cluttering up the powerline
-(require-package 'diminish)
 (diminish 'global-whitespace-mode)
 (diminish 'whitespace-mode)
 (diminish 'visual-line-mode)
 (diminish 'autopair-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
