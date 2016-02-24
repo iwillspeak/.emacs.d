@@ -92,7 +92,7 @@
 (delete-selection-mode 1)
  
 ;; Stop the annoying noises
-(setq ring-bell-function (lambda ()))
+(setq ring-bell-function 'ignore)
  
 ;; Re-Enable Disabled Commands
 (put 'upcase-region 'disabled nil)
@@ -268,15 +268,3 @@
 (diminish 'whitespace-mode)
 (diminish 'visual-line-mode)
 (diminish 'autopair-mode)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
