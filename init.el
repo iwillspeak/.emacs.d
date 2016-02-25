@@ -1,5 +1,5 @@
 ;;; --------------------- Initial Settings ----------------------------
- 
+
 ;; First set up the package manager
 (require 'package)
 (add-to-list 'package-archives
@@ -161,7 +161,8 @@
   :init
   (setq whitespace-style '(face trailing empty space-before-tab))
   (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
-  :defer 2
+  :defer 3
+  :diminish global-whitespace-mode
   :config
   (global-whitespace-mode t))
 
@@ -178,10 +179,14 @@
 ;; Automatically Paired Braces
 (use-package autopair
   :ensure t
+  :diminish autopair-mode
+  :defer 1
   :config (autopair-global-mode))
 
 ;; Omnisharp
-(use-package omnisharp :ensure t)
+(use-package omnisharp
+  :ensure t
+  :commands omnisharp-mode)
 
 ;; Notes Buffer Support
 (use-package deft
@@ -202,10 +207,20 @@
 (use-package magit
   :ensure t
   :mode "COMMIT_EDITMSG")
-(use-package git-commit :ensure t)
-(use-package gitconfig-mode :ensure t)
-(use-package gitignore-mode :ensure t)
-(use-package markdown-mode :ensure t)
+(use-package git-commit
+  :ensure t
+  :defer t)
+(use-package gitconfig-mode
+  :ensure t
+  :mode "\\.gitconfig")
+(use-package gitignore-mode
+  :ensure t
+  :mode "\\.gitignore")
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.m(d|arkdown)")
+(use-package ruby-mode
+  :mode ("Rakefile" "\\.rb"))
 
 ;;; ---------------------- General Commands ---------------------------
 
@@ -256,15 +271,8 @@
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
-(add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
-
-;; Markdown extensions
-(add-to-list 'auto-mode-alist '("\\.m(d|down)" . markdown-mode))
 
 ;;; -------------------------- Final Settings --------------------------
  
 ;; Diminish modes that we don't want cluttering up the powerline
-(diminish 'global-whitespace-mode)
-(diminish 'whitespace-mode)
 (diminish 'visual-line-mode)
-(diminish 'autopair-mode)
