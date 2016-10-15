@@ -17,6 +17,9 @@
  '(custom-safe-themes
    (quote
 	("32e3693cd7610599c59997fee36a68e7dd34f21db312a13ff8c7e738675b6dfc" default)))
+ '(omnisharp--curl-executable-path "C:\\Curl\\AMD64\\CURL.EXE")
+ '(omnisharp-server-executable-path
+   "C:\\Users\\willspeak\\Source\\MyRepos\\omnisharp-server\\OmniSharp\\bin\\Release\\OmniSharp.exe")
  '(deft-directory "/Users/will/Notes")
  '(package-selected-packages
    (quote
