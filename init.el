@@ -92,7 +92,7 @@
 (delete-selection-mode 1)
  
 ;; Stop the annoying noises
-(setq ring-bell-function 'ignore)
+(setq ring-bell-function (lambda ()))
  
 ;; Re-Enable Disabled Commands
 (put 'upcase-region 'disabled nil)
@@ -174,7 +174,7 @@
 ;; Nice modeline
 (use-package powerline
   :ensure t
-  :config (powerline-default-theme))
+  :config (powerline-moe-theme))
 
 ;; Automatically Paired Braces
 (use-package autopair
@@ -194,11 +194,7 @@
   :init (setq deft-default-extension "md")
   :bind ([f8] . deft))
  
-;; Git in the gutter
-;; (ensure-installed 'git-gutter-fringe)
-;; (global-git-gutter-mode 1)
-
-;; Trees on the size
+;; Trees on the side
 (use-package neotree
   :ensure t
   :bind ("C-(" . neotree-toggle))
@@ -221,6 +217,18 @@
   :mode "\\.m(d|arkdown)")
 (use-package ruby-mode
   :mode ("Rakefile" "\\.rb"))
+(use-package rust-mode
+  :ensure t
+  :mode "\\.rs"
+  :config
+  (add-hook 'rust-mode-hook
+			(lambda ()
+			  (set (make-local-variable 'compile-command) "cargo test"))))
+(use-package toml-mode
+  :ensure t
+  :mode "\\.toml")
+(use-package yaml-mode
+  :mode "\\.ya?ml")
 
 ;;; ---------------------- General Commands ---------------------------
 
