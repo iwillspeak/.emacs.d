@@ -47,7 +47,7 @@
 ;; Nice size for the default window
 (set 'frame-y-padding
 	 (if (eq system-type 'windows-nt)
-		 80
+		 160
 	   120))
 (defun get-default-height ()
   (/ (- (display-pixel-height) frame-y-padding)
@@ -57,8 +57,8 @@
 	 (frame-char-width)))
 (add-to-list 'default-frame-alist (cons 'width (min 140 (get-min-width))))
 (add-to-list 'default-frame-alist (cons 'height (get-default-height)))
-(add-to-list 'default-frame-alist '(top . 0))
-(add-to-list 'default-frame-alist '(left . 0))
+(add-to-list 'default-frame-alist '(top . 10))
+(add-to-list 'default-frame-alist '(left . 10))
  
 ;; Set the cursor shape, I like the chunky cursor from my phone... :-p
 (setq-default cursor-type '(bar . 3))
@@ -74,8 +74,7 @@
   (tool-bar-mode -1))
 (menu-bar-mode -1)
 (setq inhibit-startup-screen t)
- 
- 
+
 ;;; --------------------- Set Up Builtin Modes ---------------------------
  
 ;; Default to looking in the home directory, not sure why emacs doesn't on win
@@ -92,7 +91,7 @@
 (delete-selection-mode 1)
  
 ;; Stop the annoying noises
-(setq ring-bell-function (lambda ()))
+(setq ring-bell-function 'ignore)
  
 ;; Re-Enable Disabled Commands
 (put 'upcase-region 'disabled nil)
@@ -136,7 +135,13 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
- 
+
+(use-package company
+  :ensure t
+  :commands company-mode
+  :config
+  (global-whitespace-mode t))
+
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
   :ensure t
@@ -202,7 +207,7 @@
 ;; Useful Modes
 (use-package magit
   :ensure t
-  :mode "COMMIT_EDITMSG")
+  :mode ("COMMIT_EDITMSG" "MERGE_MSG"))
 (use-package git-commit
   :ensure t
   :defer t)
@@ -268,14 +273,17 @@
 			(four-space-tabs)
 			(setq indent-tabs-mode nil)
 			(setq python-indent 4)))
-(add-hook 'csharp-mode-hook
-	  (lambda ()
-	    (omnisharp-mode)
-	    (c-like-indent)
-	    (setq indent-tabs-mode nil)
-	    (autopair-mode -1)
-	    (local-set-key (kbd "C-.") 'omnisharp-run-code-action-refactoring)))
-
+;; (add-hook 'csharp-mode-hook
+;; 	  (lambda ()
+;; 	    (omnisharp-mode)
+;; 	    (c-like-indent)
+;; 	    (setq indent-tabs-mode nil)
+;; 	    (autopair-mode -1)
+;; 	    (local-set-key (kbd "C-.") 'omnisharp-run-code-action-refactoring)
+;; 		(local-set-key (kbd ".") 'omnisharp-add-dot-and-auto-complete)))
+(add-hook 'deft-mode-hook
+		  (lambda ()
+			(local-set-key (kbd "C-k") 'deft-delete-file)))
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
