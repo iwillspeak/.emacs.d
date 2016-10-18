@@ -13,15 +13,3 @@
 	 104 134217848 109 99 47 101 100 105 116 32 108 105 110 101
 	 115 return 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5
 	 4 return] 0 "%d")) arg)))
-
-;; Prettyfy Json
-;;
-;; Quickly format json with python's `json.tool` module.
-(fset 'prettify-json
-   (lambda (&optional arg)
-	 "Nicely format JSON"
-	 (interactive "p")
-	 (kmacro-exec-ring-item
-	  (quote ([134217852 112 121 116 104 111 110 32 45 109 106
-	  115 111 110 46 44 116 111 backspace backspace backspace 116
-	  111 111 108 return] 0 "%d")) arg)))
