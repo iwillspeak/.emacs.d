@@ -240,6 +240,9 @@
   :mode "\\.toml")
 (use-package yaml-mode
   :mode "\\.ya?ml")
+(use-package powershell
+  :mode ("\\.ps1" . powershell-mode)
+  :commands powershell-mode)
 
 ;;; ---------------------- General Commands ---------------------------
 
