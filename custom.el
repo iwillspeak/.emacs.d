@@ -1,7 +1,3 @@
-(use-package moe-theme
-  :ensure t
-  :config (moe-theme-random-color))
-
 ;;; --------------- Don't touch the auto stuff :-p ---------------------
 
 (custom-set-variables
@@ -13,7 +9,6 @@
    [default default default italic underline success warning error])
  '(ansi-term-color-vector
    [unspecified "#383830" "#f92672" "#a6e22e" "#f4bf75" "#66d9ef" "#ae81ff" "#66d9ef" "#f5f4f1"] t)
- '(custom-enabled-themes (quote (moe-dark)))
  '(custom-safe-themes
    (quote
 	("32e3693cd7610599c59997fee36a68e7dd34f21db312a13ff8c7e738675b6dfc" default)))

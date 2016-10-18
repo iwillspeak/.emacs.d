@@ -25,7 +25,18 @@
   (dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
 	(when (file-directory-p theme-dir)
 	  (add-to-list 'custom-theme-load-path path))))
- 
+
+;; Load 'look and feel' packages
+(use-package powerline
+  :ensure t)
+;;  :config (powerline-default-theme))  ;; moe-theme configures this now
+(use-package moe-theme
+  :ensure t
+  :config
+  (moe-theme-random-color)
+  (powerline-moe-theme)
+  (moe-dark))
+
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
@@ -176,11 +187,6 @@
   :ensure t
   :commands leerzeichen-mode)
  
-;; Nice modeline
-(use-package powerline
-  :ensure t
-  :config (powerline-moe-theme))
-
 ;; Automatically Paired Braces
 (use-package autopair
   :ensure t
