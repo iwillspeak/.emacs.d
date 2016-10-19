@@ -208,7 +208,7 @@
 ;; Notes Buffer Support
 (use-package deft
   :ensure t
-  :init (setq deft-default-extension "md")
+  :config (setq deft-default-extension "md")
   :bind ([f8] . deft))
  
 ;; Trees on the side
@@ -219,10 +219,8 @@
 ;; Useful Modes
 (use-package magit
   :ensure t
+  :defer 5
   :mode ("COMMIT_EDITMSG" "MERGE_MSG"))
-(use-package git-commit
-  :ensure t
-  :defer t)
 (use-package gitconfig-mode
   :ensure t
   :mode "\\.gitconfig")
