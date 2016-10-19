@@ -239,8 +239,10 @@
   :ensure t
   :mode "\\.toml")
 (use-package yaml-mode
+  :ensure t
   :mode "\\.ya?ml")
 (use-package powershell
+  :ensure t
   :mode ("\\.ps1" . powershell-mode)
   :commands powershell-mode)
 
