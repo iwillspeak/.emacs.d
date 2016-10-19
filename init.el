@@ -102,9 +102,6 @@
 ;; Nice wrapping of things
 (global-visual-line-mode 't)
 
-;; We like line numbers, really we do
-(global-linum-mode 1)
- 
 ;; Overtype in selections
 (delete-selection-mode 1)
  
@@ -153,6 +150,11 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
+
+;; We like line numbers, really we do
+(use-package nlinum
+  :ensure t
+  :config (global-nlinum-mode))
 
 (use-package company
   :ensure t
