@@ -154,7 +154,16 @@
 ;; We like line numbers, really we do
 (use-package nlinum
   :ensure t
-  :config (global-nlinum-mode))
+  :commands nlinum-mode
+  :init (progn (add-hook 'fundamental-mode-hook 'nlinum-mode)
+			   (add-hook 'prog-mode-hook 'nlinum-mode))
+  :config (add-hook 'nlinum-mode-hook
+					(lambda ()
+					  (setq-local nlinum-format
+								  (concat "%" (number-to-string
+											   ;; Guesstimate number of buffer lines.
+											   (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+										  "d")))))
 
 (use-package company
   :ensure t
@@ -219,6 +228,8 @@
 ;; Trees on the side
 (use-package neotree
   :ensure t
+  :config (setq neo-window-fixed-size nil
+				neo-show-hidden-files t)
   :bind ("C-(" . neotree-toggle))
 
 ;; Useful Modes
