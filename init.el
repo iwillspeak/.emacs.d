@@ -212,7 +212,9 @@
 (use-package deft
   :ensure t
   :config (setq deft-default-extension "md")
-  :bind ([f8] . deft))
+  :bind (([f8] . deft)
+		 :map deft-mode-map
+		 ("C-k" . deft-delete-file)))
  
 ;; Trees on the side
 (use-package neotree
@@ -299,9 +301,6 @@
 ;; 	    (autopair-mode -1)
 ;; 	    (local-set-key (kbd "C-.") 'omnisharp-run-code-action-refactoring)
 ;; 		(local-set-key (kbd ".") 'omnisharp-add-dot-and-auto-complete)))
-(add-hook 'deft-mode-hook
-		  (lambda ()
-			(local-set-key (kbd "C-k") 'deft-delete-file)))
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
