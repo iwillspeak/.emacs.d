@@ -156,7 +156,8 @@
   :ensure t
   :commands nlinum-mode
   :init (progn (add-hook 'fundamental-mode-hook 'nlinum-mode)
-			   (add-hook 'prog-mode-hook 'nlinum-mode))
+			   (add-hook 'prog-mode-hook 'nlinum-mode)
+			   (setq nlinum-highlight-current-line t))
   :config (add-hook 'nlinum-mode-hook
 					(lambda ()
 					  (setq-local nlinum-format
