@@ -228,9 +228,16 @@
 ;; Trees on the side
 (use-package neotree
   :ensure t
-  :config (setq neo-window-fixed-size nil
-				neo-show-hidden-files t)
-  :bind ("C-(" . neotree-toggle))
+  :config (progn
+			(setq neo-window-fixed-size nil
+				  neo-show-hidden-files t
+				  neo-theme "nerd")
+			(add-hook 'neotree-mode-hook
+					  (lambda ()
+						(visual-line-mode -1)
+						(setq truncate-lines t))))
+  :bind (("C-(" . neotree-toggle)
+		 ([double-mouse-1] . neotree-change-root)))
 
 ;; Useful Modes
 (use-package magit
