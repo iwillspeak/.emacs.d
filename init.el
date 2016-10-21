@@ -168,9 +168,7 @@
 
 (use-package company
   :ensure t
-  :commands company-mode
-  :config
-  (global-whitespace-mode t))
+  :commands company-mode)
 
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
@@ -249,6 +247,7 @@
 							  tooltip-mode nil
 							  show-help-function nil))))
   :bind (("C-(" . neotree-toggle)
+		 :map neotree-mode-map
 		 ([double-mouse-1] . neotree-change-root)))
 
 ;; Useful Modes
