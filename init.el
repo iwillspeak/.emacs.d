@@ -225,18 +225,29 @@
   :bind (([f8] . deft)
 		 :map deft-mode-map
 		 ("C-k" . deft-delete-file)))
- 
+
+;; Icons for *ALL* the things \o/
+(use-package all-the-icons
+  :ensure t
+  :if window-system)
+
 ;; Trees on the side
 (use-package neotree
   :ensure t
+  :if window-system
   :config (progn
 			(setq neo-window-fixed-size nil
 				  neo-show-hidden-files t
-				  neo-theme "nerd")
+				  neo-theme 'ascii
+				  neo-banner-message nil
+				  neo-create-file-auto-open t)
 			(add-hook 'neotree-mode-hook
 					  (lambda ()
+						(hl-line-mode)
 						(visual-line-mode -1)
-						(setq truncate-lines t))))
+						(setq truncate-lines t
+							  tooltip-mode nil
+							  show-help-function nil))))
   :bind (("C-(" . neotree-toggle)
 		 ([double-mouse-1] . neotree-change-root)))
 
