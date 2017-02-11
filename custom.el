@@ -7,8 +7,6 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#303030" "#ff4b4b" "#d7ff5f" "#fce94f" "#5fafd7" "#d18aff" "#afd7ff" "#c6c6c6"])
  '(ansi-term-color-vector
    [unspecified "#383830" "#f92672" "#a6e22e" "#f4bf75" "#66d9ef" "#ae81ff" "#66d9ef" "#f5f4f1"] t)
  '(custom-safe-themes
@@ -20,7 +18,7 @@
    "C:\\Users\\willspeak\\Source\\MyRepos\\omnisharp-server\\OmniSharp\\bin\\Release\\OmniSharp.exe")
  '(package-selected-packages
    (quote
-	(nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
+	(go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

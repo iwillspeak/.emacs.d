@@ -268,11 +268,7 @@
   :mode ("Rakefile" "\\.rb"))
 (use-package rust-mode
   :ensure t
-  :mode "\\.rs"
-  :config
-  (add-hook 'rust-mode-hook
-			(lambda ()
-			  (set (make-local-variable 'compile-command) "cargo test"))))
+  :mode "\\.rs")
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
@@ -283,6 +279,9 @@
   :ensure t
   :mode ("\\.ps1" . powershell-mode)
   :commands powershell-mode)
+(use-package go-mode
+  :ensure t
+  :mode "\\.go$")
 
 ;;; ---------------------- General Commands ---------------------------
 
