@@ -18,7 +18,7 @@
    "C:\\Users\\willspeak\\Source\\MyRepos\\omnisharp-server\\OmniSharp\\bin\\Release\\OmniSharp.exe")
  '(package-selected-packages
    (quote
-	(go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
+	(editorconfig go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

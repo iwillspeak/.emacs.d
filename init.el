@@ -282,6 +282,9 @@
 (use-package go-mode
   :ensure t
   :mode "\\.go$")
+(use-package editorconfig
+  :ensure t
+  :config (editorconfig-mode 1))
 
 ;;; ---------------------- General Commands ---------------------------
 
