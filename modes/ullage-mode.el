@@ -35,9 +35,10 @@
   ;; Extra font locks, this is for labels and pseudo operators
   '((":\s*\\<\\([_[:alpha:]][_[:alnum:]]*\\)\\>" 1 'font-lock-type-face)
 	("\\<\\(fn\\)\\>\s+\\<\\([_[:alpha:]][_[:alnum:]]*\\)\\>"
-	 (1 'font-lock-builtin-face)
+	 (1 'font-lock-keyword-face)
 	 (2 'font-lock-function-name-face))
 	;; ("=" . 'font-lock-builtin-face)
+	("print" . 'font-lock-builtin-face)
 	("[0-9]+" . 'font-lock-constant-face)
 	("#" . 'font-lock-comment-delimiter-face))
   ;; Lasm is where it's at
