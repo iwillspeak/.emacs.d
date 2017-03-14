@@ -31,7 +31,7 @@
   ;; Comment start marker, we just do single line comments for now
   '("#")
   ;; Keywords
-  '("while" "end" "let" "if" "unless" "else")
+  '("while" "end" "let" "var" "if" "unless" "else")
   ;; Extra font locks, this is for labels and pseudo operators
   '((":\s*\\<\\([_[:alpha:]][_[:alnum:]]*\\)\\>" 1 'font-lock-type-face)
 	("\\<\\(fn\\)\\>\s+\\<\\([_[:alpha:]][_[:alnum:]]*\\)\\>"
