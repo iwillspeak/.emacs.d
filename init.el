@@ -1,5 +1,18 @@
 ;;; --------------------- Initial Settings ----------------------------
 
+;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20015
+(setq tramp-ssh-controlmaster-options "")
+
+;; reduce startup time by raising the gc threshold
+(setq gc-cons-threshold 100000000)
+;; restore default threshold after 5 seconds
+(run-with-idle-timer
+ 5 nil
+ (lambda ()
+   (setq gc-cons-threshold 1000000)
+   (message "gc-cons-threshold restored to %S"
+            gc-cons-threshold)))
+
 ;; First set up the package manager
 (require 'package)
 (add-to-list 'package-archives
