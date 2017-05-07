@@ -38,7 +38,7 @@
 	 (1 'font-lock-keyword-face)
 	 (2 'font-lock-function-name-face))
 	;; ("=" . 'font-lock-builtin-face)
-	("print" . 'font-lock-builtin-face)
+	("\\bprint\\b" . 'font-lock-builtin-face)
 	("[0-9]+" . 'font-lock-constant-face)
 	("#" . 'font-lock-comment-delimiter-face))
   ;; Lasm is where it's at
