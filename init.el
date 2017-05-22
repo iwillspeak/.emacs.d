@@ -51,11 +51,12 @@
   :defer t)
 (use-package moe-theme
   :ensure t
+  :commands (moe-dark moe-light)
   :config
   (progn
 	(moe-theme-random-color)
-	(powerline-moe-theme)
-	(moe-dark)))
+	(powerline-moe-theme)))
+(moe-dark)
 
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
