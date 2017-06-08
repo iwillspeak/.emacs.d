@@ -52,11 +52,11 @@
 (use-package moe-theme
   :ensure t
   :commands (moe-dark moe-light)
+  :init (moe-dark)
   :config
   (progn
 	(moe-theme-random-color)
 	(powerline-moe-theme)))
-(moe-dark)
 
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -225,10 +225,34 @@
   :defer 1
   :config (autopair-global-mode))
 
+;; Deferred HTTP to talk to Omnisharp
+(use-package request-deferred
+  :ensure t)
+
+;; Company for Completion
+(use-package company
+  :ensure t
+  :commands company-mode)
+
 ;; Omnisharp
 (use-package omnisharp
   :ensure t
-  :commands omnisharp-mode)
+  :defer t
+  :init (add-hook 'omnisharp-mode-hook
+				  (lambda ()
+					(setq-local company-backends '(company-omnisharp))
+					(auto-complete-mode -1)
+					(company-mode)))
+  :config (setq omnisharp-use-http t)
+  :commands omnisharp-mode
+  :bind (:map omnisharp-mode-map
+			  ("C-." . omnisharp-run-code-action-refactoring)
+			  ("M-." . omnisharp-go-to-definition)
+			  ("M-," . omnisharp-find-usages)))
+(use-package csharp-mode
+  :ensure t
+  :init (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  :mode "\\.cs")
 
 ;; Notes Buffer Support
 (use-package deft
@@ -331,7 +355,6 @@
  
 ;; Attach hooks to the modes I'm interested in
 (add-hook 'fundamental-mode-hook 'four-space-tabs)
-(add-hook 'mustache-mode 'four-space-tabs)
 (add-hook 'c-mode-hook 'c-like-indent)
 (add-hook 'c++-mode-hook 'c-like-indent)
 (add-hook 'python-mode-hook
@@ -339,18 +362,9 @@
 			(four-space-tabs)
 			(setq indent-tabs-mode nil)
 			(setq python-indent 4)))
-;; (add-hook 'csharp-mode-hook
-;; 	  (lambda ()
-;; 	    (omnisharp-mode)
-;; 	    (c-like-indent)
-;; 	    (setq indent-tabs-mode nil)
-;; 	    (autopair-mode -1)
-;; 	    (local-set-key (kbd "C-.") 'omnisharp-run-code-action-refactoring)
-;; 		(local-set-key (kbd ".") 'omnisharp-add-dot-and-auto-complete)))
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
-
 (add-to-list 'auto-mode-alist '("\\.csproj$" . xml-mode))
 
 ;;; -------------------------- Final Settings --------------------------
