@@ -324,6 +324,9 @@
   :ensure t
   :diminish editorconfig-mode
   :config (editorconfig-mode 1))
+(use-package ponylang-mode
+  :ensure t
+  :mode "\\.pony$")
 
 ;;; ---------------------- General Commands ---------------------------
 
