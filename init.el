@@ -246,6 +246,7 @@
   :config (setq omnisharp-use-http t)
   :commands omnisharp-mode
   :bind (:map omnisharp-mode-map
+			  ;; ("C-r C-r" . omnisharp-rename) collides with reverse search
 			  ("C-." . omnisharp-run-code-action-refactoring)
 			  ("M-." . omnisharp-go-to-definition)
 			  ("M-," . omnisharp-find-usages)))
