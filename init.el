@@ -255,6 +255,17 @@
   :init (add-hook 'csharp-mode-hook 'omnisharp-mode)
   :mode "\\.cs")
 
+;; Racer for Rust
+(use-package racer
+  :ensure t
+  :defer t
+  :init (progn
+		  (add-hook 'racer-mode-hook #'eldoc-mode)
+		  (add-hook 'racer-mode-hook #'company-mode))
+  :commands racer-mode
+  :bind (:map rust-mode-map
+			  ("TAB" . company-indent-or-complete-common)))
+
 ;; Notes Buffer Support
 (use-package deft
   :ensure t
@@ -307,7 +318,8 @@
   :mode ("Rakefile" "\\.rb"))
 (use-package rust-mode
   :ensure t
-  :mode "\\.rs")
+  :mode "\\.rs"
+  :init (add-hook 'rust-mode-hook #'racer-mode))
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
