@@ -41,7 +41,7 @@
 
 ;; Choose a Font
 (cond ((find-font (font-spec :family "Menlo"))
-	   (set-frame-font (font-spec :size 12.0 :family "Menlo") nil t))
+	   (set-frame-font (font-spec :size 14.0 :family "Menlo") nil t))
 	  ((find-font (font-spec :family "Consolas"))
 	   (set-frame-font (font-spec :size 14.0 :family "Consolas") nil t)))
 
