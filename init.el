@@ -320,7 +320,10 @@
 (use-package rust-mode
   :ensure t
   :mode "\\.rs"
-  :init (add-hook 'rust-mode-hook #'racer-mode))
+  :init (add-hook 'rust-mode-hook
+				  (lambda ()
+					(kill-local-variable 'compile-command)
+					(racer-mode))))
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
