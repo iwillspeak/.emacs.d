@@ -304,7 +304,8 @@
 (use-package magit
   :ensure t
   :defer 5
-  :mode ("COMMIT_EDITMSG" "MERGE_MSG"))
+  :mode ("COMMIT_EDITMSG" "MERGE_MSG")
+  :bind (("M-s" . magit-status)))
 (use-package gitconfig-mode
   :ensure t
   :mode "\\.gitconfig")
