@@ -320,6 +320,8 @@
 (use-package rust-mode
   :ensure t
   :mode "\\.rs"
+  :bind (:map rust-mode-map
+			  ("C-c b" . rust-compile))
   :init (add-hook 'rust-mode-hook
 				  (lambda ()
 					(kill-local-variable 'compile-command)
