@@ -248,7 +248,7 @@
 					(setq-local company-backends '(company-omnisharp))
 					(auto-complete-mode -1)
 					(company-mode)))
-  :config (setq omnisharp-use-http t)
+  ;; :config (setq omnisharp-use-http t)
   :commands omnisharp-mode
   :bind (:map omnisharp-mode-map
 			  ;; ("C-r C-r" . omnisharp-rename) collides with reverse search
