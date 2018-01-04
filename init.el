@@ -165,6 +165,11 @@
 
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
 
+;; Diminish modes that we don't want cluttering up the powerline
+(use-package diminish
+  :ensure t
+  :config (diminish 'visual-line-mode))
+
 ;; We like line numbers, really we do
 (use-package nlinum
   :ensure t
@@ -390,6 +395,3 @@
 (add-to-list 'auto-mode-alist '("\\.nuspec$" . xml-mode))
 
 ;;; -------------------------- Final Settings --------------------------
- 
-;; Diminish modes that we don't want cluttering up the powerline
-(diminish 'visual-line-mode)
