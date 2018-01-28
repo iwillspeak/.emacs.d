@@ -194,6 +194,11 @@
   :ensure t
   :bind (("C-=" . er/expand-region)
 	 ("C-+" . er/contract-region)))
+
+;; Ripgrep!
+(use-package rg
+  :ensure t
+  :commands rg-literal)
  
 ;; Multiple Cursors
 (use-package multiple-cursors
