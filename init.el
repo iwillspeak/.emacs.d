@@ -56,6 +56,8 @@
   :config
   (progn
 	(moe-theme-random-color)
+	(if (eq moe-theme-mode-line-color 'w/b)
+		(moe-theme-random-color))
 	(powerline-moe-theme)))
 
 ;; Load settings done with custom, do this early so we can depend on the font
