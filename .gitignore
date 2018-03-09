@@ -4,3 +4,4 @@ backups/
 elpa/
 ido.last
 eshell/
+.cache/
