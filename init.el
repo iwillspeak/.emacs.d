@@ -387,7 +387,6 @@
   (setq c-basic-offset 4))
  
 ;; Attach hooks to the modes I'm interested in
-(add-hook 'fundamental-mode-hook 'four-space-tabs)
 (add-hook 'c-mode-hook 'c-like-indent)
 (add-hook 'c++-mode-hook 'c-like-indent)
 (add-hook 'python-mode-hook
