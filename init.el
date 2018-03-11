@@ -267,6 +267,12 @@
   :init (add-hook 'csharp-mode-hook 'omnisharp-mode)
   :mode "\\.cs")
 
+(use-package fsharp-mode
+  :ensure t
+  :init (add-hook 'fsharp-mode-hook (lambda ()
+									  (kill-local-variable 'compile-command)))
+  :mode "\\.fs[ix]?")
+
 ;; Racer for Rust
 (use-package racer
   :ensure t
