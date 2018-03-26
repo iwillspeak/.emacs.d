@@ -200,7 +200,8 @@
 ;; Ripgrep!
 (use-package rg
   :ensure t
-  :commands rg-literal)
+  :commands (rg-literal rg)
+  :bind ("H-SPC" . rg))
  
 ;; Multiple Cursors
 (use-package multiple-cursors

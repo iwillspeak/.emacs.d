@@ -2,7 +2,8 @@
 (setq mac-option-key-is-meta nil
       mac-command-key-is-meta t
       mac-command-modifier 'meta
-      mac-option-modifier 'none)
+      mac-option-modifier 'none
+	  ns-function-modifier 'hyper)
 
 ;; Because this is what I use on windows
 (global-set-key (kbd "M-<up>") 'toggle-frame-fullscreen)
