@@ -364,6 +364,9 @@
 (use-package ponylang-mode
   :ensure t
   :mode "\\.pony$")
+(use-package elm-mode
+  :ensure t
+  :mode "\\.elm$")
 
 ;;; ---------------------- General Commands ---------------------------
 

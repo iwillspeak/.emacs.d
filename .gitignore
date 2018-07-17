@@ -5,3 +5,5 @@ elpa/
 ido.last
 eshell/
 .cache/
+url/
+network-security.data
