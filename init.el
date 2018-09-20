@@ -265,7 +265,10 @@
 			  ("M-," . omnisharp-find-usages)))
 (use-package csharp-mode
   :ensure t
-  :init (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  :init (progn
+		  (add-hook 'csharp-mode-hook 'omnisharp-mode)
+		  (add-hook 'csharp-mode-hook (lambda ()
+										(c-set-offset 'arglist-intro '+))))
   :mode "\\.cs")
 
 (use-package fsharp-mode
