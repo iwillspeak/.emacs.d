@@ -411,6 +411,7 @@
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
 (add-to-list 'auto-mode-alist '("\\.csproj$" . xml-mode))
+(add-to-list 'auto-mode-alist '("\\.props$" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\.nuspec$" . xml-mode))
 
 ;;; -------------------------- Final Settings --------------------------
