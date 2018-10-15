@@ -49,16 +49,9 @@
 (use-package powerline
   :ensure t
   :defer t)
-(use-package moe-theme
+(use-package nord-theme
   :ensure t
-  :commands (moe-dark moe-light)
-  :init (moe-dark)
-  :config
-  (progn
-	(moe-theme-random-color)
-	(if (eq moe-theme-mode-line-color 'w/b)
-		(moe-theme-random-color))
-	(powerline-moe-theme)))
+  :config (powerline-default-theme))
 
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))

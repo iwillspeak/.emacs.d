@@ -7,15 +7,18 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#303030" "#ff4b4b" "#d7ff5f" "#fce94f" "#5fafd7" "#d18aff" "#afd7ff" "#c6c6c6"])
  '(ansi-term-color-vector
    [unspecified "#383830" "#f92672" "#a6e22e" "#f4bf75" "#66d9ef" "#ae81ff" "#66d9ef" "#f5f4f1"] t)
+ '(custom-enabled-themes (quote (nord)))
  '(custom-safe-themes
    (quote
-	("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" "32e3693cd7610599c59997fee36a68e7dd34f21db312a13ff8c7e738675b6dfc" default)))
+	("e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" "32e3693cd7610599c59997fee36a68e7dd34f21db312a13ff8c7e738675b6dfc" default)))
  '(deft-directory "~/Notes")
  '(package-selected-packages
    (quote
-	(elm-mode fsharp-mode rg diminish ponylang-mode request-deferred editorconfig go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
+	(nord-theme elm-mode fsharp-mode rg diminish ponylang-mode request-deferred editorconfig go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme yaml-mode use-package toml-mode rust-mode powerline omnisharp neotree multiple-cursors markdown-mode magit leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
