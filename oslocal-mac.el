@@ -13,7 +13,9 @@
 		  (let* ((env-line (split-string env "="))
 				 (env-name (car env-line))
 				 (env-value (cadr env-line)))
-			(setenv env-name env-value)))
+			(setenv env-name env-value)
+			(if (string= "PATH" env-name)
+				(setq exec-path (split-string env-value ":")))))
 		; Run the `env` command and take each line to process
 		(split-string (shell-command-to-string ". ~/.profile; env")
 					  "\n"))
