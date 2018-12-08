@@ -180,8 +180,10 @@
 											   (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
 										  "d")))))
 
+;; Company for Completion
 (use-package company
   :ensure t
+  :diminish company-mode
   :commands company-mode)
 
 ;; Bind expand region, pretty useful key combination
@@ -235,11 +237,6 @@
 (use-package request-deferred
   :ensure t)
 
-;; Company for Completion
-(use-package company
-  :ensure t
-  :commands company-mode)
-
 ;; Omnisharp
 (use-package omnisharp
   :ensure t
@@ -270,16 +267,6 @@
 									  (kill-local-variable 'compile-command)))
   :mode "\\.fs[ix]?")
 
-;; Racer for Rust
-(use-package racer
-  :ensure t
-  :defer t
-  :init (progn
-		  (add-hook 'racer-mode-hook #'eldoc-mode)
-		  (add-hook 'racer-mode-hook #'company-mode))
-  :commands racer-mode
-  :bind (:map rust-mode-map
-			  ("TAB" . company-indent-or-complete-common)))
 
 ;; Notes Buffer Support
 (use-package deft
@@ -334,15 +321,37 @@
   :mode "\\.m(d|arkdown)")
 (use-package ruby-mode
   :mode ("Rakefile" "\\.rb"))
+
+;; ;; Racer for Rust
+;; (use-package racer
+;;   :ensure t
+;;   :defer t
+;;   :init (progn
+;; 		  (add-hook 'racer-mode-hook #'eldoc-mode)
+;; 		  (add-hook 'racer-mode-hook #'company-mode))
+;;   :commands racer-mode
+;;   :bind (:map rust-mode-map
+;; 			  ("TAB" . company-indent-or-complete-common)))
 (use-package rust-mode
   :ensure t
   :mode "\\.rs"
+  :diminish eldoc-mode
   :bind (:map rust-mode-map
 			  ("C-c b" . rust-compile))
   :init (add-hook 'rust-mode-hook
 				  (lambda ()
-					(kill-local-variable 'compile-command)
-					(racer-mode))))
+					(lsp)
+					(kill-local-variable 'compile-command))))
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :commands lsp
+  :diminish lsp-mode
+  :config
+  (use-package lsp-clients))
+(use-package company-lsp
+  :ensure t
+  :after company)
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")

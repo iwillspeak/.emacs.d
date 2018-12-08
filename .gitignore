@@ -7,3 +7,4 @@ eshell/
 .cache/
 url/
 network-security.data
+.lsp-session
