@@ -284,7 +284,10 @@
 ;; Notes Buffer Support
 (use-package deft
   :ensure t
-  :config (setq deft-default-extension "md")
+  :config (progn
+			(setq deft-default-extension "md")
+			(setq deft-markdown-mode-title-level 1)
+			(setq deft-use-filter-string-for-filename t))
   :bind (([f8] . deft)
 		 :map deft-mode-map
 		 ("C-k" . deft-delete-file)))
