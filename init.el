@@ -21,13 +21,14 @@
 (package-initialize)
 
 ;; Use `use-package`
-(unless (package-installed-p 'use-package)
-  (condition-case nil
-      (package-install 'use-package)
-    (error
-     (package-refresh-contents)
-     (package-install 'use-package))))
-(require 'use-package)
+(eval-when-compile
+  (unless (package-installed-p 'use-package)
+	(condition-case nil
+		(package-install 'use-package)
+      (error
+       (package-refresh-contents)
+       (package-install 'use-package))))
+  (require 'use-package))
 
 ;; Next apply any OS Local Settings
 (setq os-local-settings (concat user-emacs-directory "oslocal.el"))
@@ -256,11 +257,12 @@
 			  ("M-," . omnisharp-find-usages)))
 (use-package csharp-mode
   :ensure t
+  :diminish eldoc-mode
   :init (progn
 		  (add-hook 'csharp-mode-hook 'omnisharp-mode)
 		  (add-hook 'csharp-mode-hook (lambda ()
 										(c-set-offset 'arglist-intro '+))))
-  :mode ("\\.cake$" "\\.cs$"))
+  :mode "\\.\\(cake\\)\\|\\(cs\\)\\$")
 
 (use-package fsharp-mode
   :ensure t
@@ -321,18 +323,8 @@
   :ensure t
   :mode "\\.m(d|arkdown)")
 (use-package ruby-mode
-  :mode ("Rakefile" "\\.rb"))
+  :mode "\\(Rakefile\\)\\|\\(\\.rb\\)\\$")
 
-;; ;; Racer for Rust
-;; (use-package racer
-;;   :ensure t
-;;   :defer t
-;;   :init (progn
-;; 		  (add-hook 'racer-mode-hook #'eldoc-mode)
-;; 		  (add-hook 'racer-mode-hook #'company-mode))
-;;   :commands racer-mode
-;;   :bind (:map rust-mode-map
-;; 			  ("TAB" . company-indent-or-complete-common)))
 (use-package rust-mode
   :ensure t
   :mode "\\.rs"
