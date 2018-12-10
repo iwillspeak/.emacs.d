@@ -5,6 +5,7 @@
 
 ;; reduce startup time by raising the gc threshold
 (setq gc-cons-threshold 100000000)
+
 ;; restore default threshold after 5 seconds
 (run-with-idle-timer
  5 nil
@@ -259,7 +260,7 @@
 		  (add-hook 'csharp-mode-hook 'omnisharp-mode)
 		  (add-hook 'csharp-mode-hook (lambda ()
 										(c-set-offset 'arglist-intro '+))))
-  :mode "\\.cs")
+  :mode ("\\.cake$" "\\.cs$"))
 
 (use-package fsharp-mode
   :ensure t
