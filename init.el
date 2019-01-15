@@ -260,10 +260,10 @@
 (use-package csharp-mode
   :ensure t
   :diminish eldoc-mode
-  :init (progn
-		  (add-hook 'csharp-mode-hook 'omnisharp-mode)
-		  (add-hook 'csharp-mode-hook (lambda ()
-										(c-set-offset 'arglist-intro '+))))
+  :init (add-hook 'csharp-mode-hook (lambda ()
+									  (omnisharp-mode)
+									  (flycheck-mode)
+									  (c-set-offset 'arglist-intro '+)))
   :mode "\\.\\(cake\\)\\|\\(cs\\)\\$")
 
 (use-package fsharp-mode
