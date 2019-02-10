@@ -323,7 +323,8 @@
   :mode "\\.gitignore")
 (use-package markdown-mode
   :ensure t
-  :mode "\\.m(d|arkdown)")
+  :mode "\\.m(d|arkdown)"
+  :init (add-hook 'markdown-mode-hook 'flyspell-mode))
 (use-package ruby-mode
   :mode "\\(Rakefile\\)\\|\\(\\.rb\\)\\$")
 

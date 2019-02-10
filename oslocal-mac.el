@@ -6,6 +6,7 @@
 	  ns-function-modifier 'hyper)
 
 (setq powerline-image-apple-rgb t)
+(setq ispell-program-name "aspell")
 
 ;; Fixup the env variables. Neede if launched from Dock or Finder
 (mapcar (lambda (env)
