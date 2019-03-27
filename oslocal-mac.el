@@ -23,3 +23,6 @@
 
 ;; Because this is what I use on windows
 (global-set-key (kbd "M-<up>") 'toggle-frame-fullscreen)
+
+;; Delete the colour list that's broken
+(delete-file "~/Library/Colors/Emacs.clr")
