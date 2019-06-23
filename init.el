@@ -51,7 +51,7 @@
 (use-package powerline
   :ensure t
   :defer t)
-(use-package nord-theme
+(use-package dracula-theme
   :ensure t
   :config (powerline-default-theme))
 
