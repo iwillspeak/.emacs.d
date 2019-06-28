@@ -344,6 +344,8 @@
   :commands lsp
   :diminish lsp-mode
   :config
+  (use-package yasnippet
+	:ensure t)
   (use-package lsp-clients))
 (use-package company-lsp
   :ensure t
