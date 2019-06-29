@@ -1,3 +1,7 @@
+;; ullage mode setup function. Doesn't do anything for the time being
+(defun ullage-mode-setup ()
+  nil)
+
 ;; Defines a simple generic mode to hilight Ullage
 (define-generic-mode 'ullage-mode
   ;; Comment start marker, we just do single line comments for now
