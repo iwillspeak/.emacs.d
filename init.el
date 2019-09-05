@@ -160,6 +160,9 @@
 ;; Setup window splitting when diffing
 (setq ediff-split-window-function 'split-window-horizontally)
 
+;; Project find file like M-p on Code
+(global-set-key (kbd "M-p") 'project-find-file)
+
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
 
 ;; Diminish modes that we don't want cluttering up the powerline
