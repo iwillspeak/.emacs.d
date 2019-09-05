@@ -8,6 +8,11 @@
 (setq powerline-image-apple-rgb t)
 (setq ispell-program-name "aspell")
 
+;; Check for `omnisharp`
+(if (file-exists-p "/Users/willspeak/omnisharp-osx/run")
+	(setq omnisharp-expected-server-version "1.34.2"
+		  omnisharp-server-executable-path "/Users/willspeak/omnisharp-osx/run"))
+
 ;; Fixup the env variables. Neede if launched from Dock or Finder
 (mapcar (lambda (env)
 		  ; grab the parts of the environment variable
