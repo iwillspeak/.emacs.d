@@ -238,10 +238,6 @@
   :defer 1
   :config (autopair-global-mode))
 
-;; Deferred HTTP to talk to Omnisharp
-(use-package request-deferred
-  :ensure t)
-
 ;; Omnisharp
 (use-package omnisharp
   :ensure t
@@ -251,16 +247,15 @@
 					(setq-local company-backends '(company-omnisharp))
 					(auto-complete-mode -1)
 					(company-mode)))
-  ;; :config (setq omnisharp-use-http t)
   :commands omnisharp-mode
   :bind (:map omnisharp-mode-map
-			  ;; ("C-r C-r" . omnisharp-rename) collides with reverse search
 			  ("C-c u" . omnisharp-unit-test-at-point)
 			  ("C-c U" . omnisharp-unit-test-buffer)
 			  ("C-c r" . omnisharp-rename)
 			  ("<f2>" . omnisharp-rename)
 			  ("C-." . omnisharp-run-code-action-refactoring)
 			  ("M-." . omnisharp-go-to-definition)
+			  ("<f12>" . omnisharp-go-to-definition)
 			  ("M-," . omnisharp-find-usages)))
 (use-package csharp-mode
   :ensure t
