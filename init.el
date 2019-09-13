@@ -321,6 +321,9 @@
 (use-package gitignore-mode
   :ensure t
   :mode "\\.gitignore")
+(use-package flyspell
+  :bind (:map flyspell-mode-map
+			  ("C-;" . nil)))
 (use-package markdown-mode
   :ensure t
   :mode "\\.m(d|arkdown)"
