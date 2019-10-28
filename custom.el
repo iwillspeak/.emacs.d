@@ -16,6 +16,9 @@
    (quote
 	("274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e" "e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" "32e3693cd7610599c59997fee36a68e7dd34f21db312a13ff8c7e738675b6dfc" default)))
  '(deft-directory "~/Notes")
+ '(describe-char-unidata-list
+   (quote
+	(name old-name general-category canonical-combining-class decomposition digit-value iso-10646-comment lowercase titlecase)))
  '(display-buffer-base-action (quote (display-buffer-use-some-window)))
  '(package-selected-packages
    (quote
