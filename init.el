@@ -261,8 +261,10 @@
   :ensure t
   :diminish eldoc-mode
   :init (add-hook 'csharp-mode-hook (lambda ()
-									  (omnisharp-mode)
-									  (flycheck-mode)
+									  (lsp)
+									  (company-mode)
+									  ;; (omnisharp-mode)
+									  ;; (flycheck-mode)
 									  (c-set-offset 'arglist-intro '+)))
   :mode "\\.\\(cake\\)\\|\\(cs\\)\\$")
 
