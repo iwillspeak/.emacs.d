@@ -341,6 +341,7 @@
 			  ("C-c b" . rust-compile))
   :init (add-hook 'rust-mode-hook
 				  (lambda ()
+					(setq indent-tabs-mode f)
 					(lsp)
 					(kill-local-variable 'compile-command))))
 (use-package lsp-mode
