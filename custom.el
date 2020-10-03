@@ -21,7 +21,7 @@
 	(name old-name general-category canonical-combining-class decomposition digit-value iso-10646-comment lowercase titlecase)))
  '(package-selected-packages
    (quote
-	(lsp-ui lsp-mode lsp-clients yasnippet yaml-mode rust-mode magit fsharp-mode omnisharp dracula-theme company-lsp lsp-rust elm-mode rg diminish ponylang-mode request-deferred editorconfig go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme toml-mode powerline neotree multiple-cursors markdown-mode leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
+	(company-capf lsp-ui lsp-mode lsp-clients yasnippet yaml-mode rust-mode magit fsharp-mode omnisharp dracula-theme company-lsp lsp-rust elm-mode rg diminish ponylang-mode request-deferred editorconfig go-mode racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme toml-mode powerline neotree multiple-cursors markdown-mode leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair)))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

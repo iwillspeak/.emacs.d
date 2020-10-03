@@ -39,7 +39,7 @@
 (when (file-directory-p custom-theme-directory)
   (dolist (theme-dir (directory-files custom-theme-directory t "\\w+"))
 	(when (file-directory-p theme-dir)
-	  (add-to-list 'custom-theme-load-path path))))
+	  (add-to-list 'custom-theme-load-path theme-dir))))
 
 ;; Choose a Font
 (cond ((find-font (font-spec :family "Menlo"))
@@ -79,9 +79,11 @@
 		 160
 	   120))
 (defun get-default-height ()
+  "Get the default window height."
   (/ (- (display-pixel-height) frame-y-padding)
      (frame-char-height)))
 (defun get-min-width ()
+  "Get the default window width."
   (/ (- (display-pixel-width) 50)
 	 (frame-char-width)))
 (add-to-list 'default-frame-alist (cons 'width (min 140 (get-min-width))))
@@ -133,7 +135,7 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
- 
+
 ;; Control back up files
 (setq custom-backup-directory (concat user-emacs-directory "backups"))
 (setq backup-directory-alist
@@ -188,8 +190,14 @@
 ;; Company for Completion
 (use-package company
   :ensure t
-  :diminish company-mode
-  :commands company-mode)
+  :hook ((rust-mode . company-mode)
+		 (csharp-mode . company-mode)
+		 (fsharp-mode . company-mode)
+		 (omnisharp-mode-hook . company-mode))
+  :commands company-mode
+  ;; :config (setq company-tooltip-align-annotations t)
+  ;;         (setq company-minimum-prefix-length 1))
+  :diminish company-mode)
 
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
@@ -245,8 +253,7 @@
   :init (add-hook 'omnisharp-mode-hook
 				  (lambda ()
 					(setq-local company-backends '(company-omnisharp))
-					(auto-complete-mode -1)
-					(company-mode)))
+					(auto-complete-mode -1)))
   :commands omnisharp-mode
   :bind (:map omnisharp-mode-map
 			  ("C-c u" . omnisharp-unit-test-at-point)
@@ -260,18 +267,16 @@
 (use-package csharp-mode
   :ensure t
   :diminish eldoc-mode
-  :init (add-hook 'csharp-mode-hook (lambda ()
-									  (lsp)
-									  (company-mode)
-									  ;; (omnisharp-mode)
-									  ;; (flycheck-mode)
-									  (c-set-offset 'arglist-intro '+)))
+  :init (add-hook 'csharp-mode-hook
+				  (lambda ()
+					(c-set-offset 'arglist-intro '+)))
   :mode "\\.\\(cake\\)\\|\\(cs\\)\\$")
 
 (use-package fsharp-mode
   :ensure t
-  :init (add-hook 'fsharp-mode-hook (lambda ()
-									  (kill-local-variable 'compile-command)))
+  :init (add-hook 'fsharp-mode-hook
+				  (lambda ()
+					(kill-local-variable 'compile-command)))
   :mode "\\.fs[ix]?")
 
 
@@ -340,22 +345,31 @@
   :bind (:map rust-mode-map
 			  ("C-c b" . rust-compile))
   :init (add-hook 'rust-mode-hook
-				  (lambda ()
-					(setq indent-tabs-mode f)
-					(lsp)
-					(kill-local-variable 'compile-command))))
+		  (lambda ()
+		    (setq indent-tabs-mode nil)
+		    (kill-local-variable 'compile-command))))
+
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode)
+  :config
+  (use-package flycheck-rust
+	:hook (flycheck-mode-hook . flycheck-rust-setup)))
+
 (use-package lsp-mode
   :ensure t
-  :defer t
+  ;; :defer t
   :commands lsp
   :diminish lsp-mode
+  :hook (
+		 (rust-mode . lsp)
+		 ;; (csharp-mode . lsp)
+		 ;; (fsharp-mode . lsp)
+		 )
   :config
+  (setq lsp-rust-server 'rust-analyzer)
   (use-package yasnippet
 	:ensure t)
   (use-package lsp-clients))
-(use-package company-lsp
-  :ensure t
-  :after company)
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
