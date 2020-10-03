@@ -360,6 +360,9 @@
   ;; :defer t
   :commands lsp
   :diminish lsp-mode
+  :bind (:map lsp-mode-map
+			  ("H-." . lsp-find-references)
+			  ("C-." . lsp-execute-code-action))
   :hook (
 		 (rust-mode . lsp)
 		 ;; (csharp-mode . lsp)
