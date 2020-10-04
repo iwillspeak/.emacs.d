@@ -3,6 +3,9 @@
 ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20015
 (setq tramp-ssh-controlmaster-options "")
 
+;; TLS priorities
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; reduce startup time by raising the gc threshold
 (setq gc-cons-threshold 100000000)
 
@@ -16,19 +19,25 @@
 
 ;; First set up the package manager
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
+(defun do-install ()
+  (package-install 'bind-key)
+  (package-install 'use-package))
 
 ;; Use `use-package`
 (eval-when-compile
-  (unless (package-installed-p 'use-package)
-	(condition-case nil
-		(package-install 'use-package)
-      (error
-       (package-refresh-contents)
-       (package-install 'use-package))))
-  (require 'use-package))
+    (unless (package-installed-p 'use-package)
+      (condition-case nil
+	  (do-install)
+	(error
+	 (package-refresh-contents)
+	 (do-install))))
+    (require 'use-package))
 
 ;; Next apply any OS Local Settings
 (setq os-local-settings (concat user-emacs-directory "oslocal.el"))
@@ -250,6 +259,7 @@
 (use-package omnisharp
   :ensure t
   :defer t
+  :after flycheck
   :init (add-hook 'omnisharp-mode-hook
 				  (lambda ()
 					(setq-local company-backends '(company-omnisharp))
@@ -350,6 +360,7 @@
 		    (kill-local-variable 'compile-command))))
 
 (use-package flycheck
+  :ensure t
   :hook (prog-mode . flycheck-mode)
   :config
   (use-package flycheck-rust
@@ -363,16 +374,13 @@
   :bind (:map lsp-mode-map
 			  ("H-." . lsp-find-references)
 			  ("C-." . lsp-execute-code-action))
-  :hook (
-		 (rust-mode . lsp)
-		 ;; (csharp-mode . lsp)
-		 ;; (fsharp-mode . lsp)
-		 )
+  :hook ((rust-mode . lsp)
+		 (csharp-mode . lsp)
+		 (fsharp-mode . lsp))
   :config
   (setq lsp-rust-server 'rust-analyzer)
   (use-package yasnippet
-	:ensure t)
-  (use-package lsp-clients))
+	:ensure t))
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
