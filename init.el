@@ -1,7 +1,9 @@
 ;;; --------------------- Initial Settings ----------------------------
 
-;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20015
-(setq tramp-ssh-controlmaster-options "")
+;; TRAMP settings. Start with these as other modes might want to talk
+;; over TRAMP if we're called to edit a remote file.
+(setq tramp-default-method "ssh")
+(setq tramp-terminal-type "tramp")
 
 ;; TLS priorities
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
@@ -379,6 +381,35 @@
 		 (fsharp-mode . lsp))
   :config
   (setq lsp-rust-server 'rust-analyzer)
+  ;; (add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
+  ;; FIXME: make this client work ...
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection
+									 '("bash" "/home/willspeak/.omnisharp-bin/run" "-lsp"))
+		    :major-modes '(csharp-mode)
+                    :remote? t
+		    :server-id 'csharp-remote
+		    :action-handlers (ht ("omnisharp/client/findReferences" 'lsp-csharp--action-client-find-references))
+		    :notification-handlers (ht ("o#/projectadded" 'ignore)
+                                               ("o#/projectchanged" 'ignore)
+                                               ("o#/projectremoved" 'ignore)
+                                               ("o#/packagerestorestarted" 'ignore)
+                                               ("o#/msbuildprojectdiagnostics" 'ignore)
+                                               ("o#/packagerestorefinished" 'ignore)
+                                               ("o#/unresolveddependencies" 'ignore)
+                                               ("o#/error" 'lsp-csharp--handle-os-error)
+                                               ("o#/projectconfiguration" 'ignore)
+                                               ("o#/projectdiagnosticstatus" 'ignore))
+		    ;; :download-server-fn
+		    ;; (lambda (_client callback error-callback _update?)
+            ;;   (condition-case err
+            ;;       (progn
+			;; 		;; TODO: install server remote???
+			;; 		(add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
+			;; 		;; (lsp-csharp--install-server nil nil)
+			;; 		(funcall callback))
+			;; 	(error (funcall error-callback (error-message-string err)))))
+		    ))
   (use-package yasnippet
 	:ensure t))
 (use-package toml-mode
