@@ -253,11 +253,7 @@
   :commands leerzeichen-mode)
  
 ;; Automatically Paired Braces
-(use-package autopair
-  :ensure t
-  :diminish autopair-mode
-  :defer 1
-  :config (autopair-global-mode))
+(electric-pair-mode 1)
 
 ;; Omnisharp
 (use-package omnisharp
