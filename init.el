@@ -212,6 +212,10 @@
   ;;         (setq company-minimum-prefix-length 1))
   :diminish company-mode)
 
+(when window-system
+  (use-package company-box
+	:hook (company-mode . company-box-mode)))
+
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
   :ensure t
