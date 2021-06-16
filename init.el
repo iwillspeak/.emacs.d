@@ -382,7 +382,6 @@
 		 (csharp-mode . lsp)
 		 (fsharp-mode . lsp))
   :config
-  (setq lsp-rust-server 'rust-analyzer)
   ;; (add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
   ;; FIXME: make this client work ...
   (lsp-register-client
@@ -411,9 +410,13 @@
 			;; 		;; (lsp-csharp--install-server nil nil)
 			;; 		(funcall callback))
 			;; 	(error (funcall error-callback (error-message-string err)))))
-		    ))
-  (use-package yasnippet
-	:ensure t))
+		    )))
+(use-package yasnippet
+  :ensure
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (add-hook 'text-mode-hook 'yas-minor-mode))
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
