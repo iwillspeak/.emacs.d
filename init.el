@@ -288,8 +288,10 @@
 
 (use-package fsharp-mode
   :ensure t
+  :defer t
   :init (add-hook 'fsharp-mode-hook
 				  (lambda ()
+					(nlinum-mode)
 					(kill-local-variable 'compile-command)))
   :mode "\\.fs[ix]?")
 

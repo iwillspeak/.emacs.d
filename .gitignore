@@ -10,3 +10,4 @@ network-security.data
 .lsp-session*
 transient/
 tramp
+session.*
