@@ -260,24 +260,25 @@
 (electric-pair-mode 1)
 
 ;; Omnisharp
-(use-package omnisharp
-  :ensure t
-  :defer t
-  :after flycheck
-  :init (add-hook 'omnisharp-mode-hook
-				  (lambda ()
-					(setq-local company-backends '(company-omnisharp))
-					(auto-complete-mode -1)))
-  :commands omnisharp-mode
-  :bind (:map omnisharp-mode-map
-			  ("C-c u" . omnisharp-unit-test-at-point)
-			  ("C-c U" . omnisharp-unit-test-buffer)
-			  ("C-c r" . omnisharp-rename)
-			  ("<f2>" . omnisharp-rename)
-			  ("C-." . omnisharp-run-code-action-refactoring)
-			  ("M-." . omnisharp-go-to-definition)
-			  ("<f12>" . omnisharp-go-to-definition)
-			  ("M-," . omnisharp-find-usages)))
+;; (use-package omnisharp
+;;   :ensure t
+;;   :defer t
+;;   :after flycheck
+;;   :init (add-hook 'omnisharp-mode-hook
+;; 				  (lambda ()
+;; 					(setq-local company-backends '(company-omnisharp))
+;; 					(auto-complete-mode -1)))
+;;   :commands omnisharp-mode
+;;   :bind (:map omnisharp-mode-map
+;; 			  ("C-c u" . omnisharp-unit-test-at-point)
+;; 			  ("C-c U" . omnisharp-unit-test-buffer)
+;; 			  ("C-c r" . omnisharp-rename)
+;; 			  ("<f2>" . omnisharp-rename)
+;; 			  ("C-." . omnisharp-run-code-action-refactoring)
+;; 			  ("M-." . omnisharp-go-to-definition)
+;; 			  ("<f12>" . omnisharp-go-to-definition)
+;; 			  ("M-," . omnisharp-find-usages)
+;; 			  ("S-<f12>" . omnisharp-find-usages)))
 (use-package csharp-mode
   :ensure t
   :diminish eldoc-mode
@@ -403,15 +404,6 @@
                                                ("o#/error" 'lsp-csharp--handle-os-error)
                                                ("o#/projectconfiguration" 'ignore)
                                                ("o#/projectdiagnosticstatus" 'ignore))
-		    ;; :download-server-fn
-		    ;; (lambda (_client callback error-callback _update?)
-            ;;   (condition-case err
-            ;;       (progn
-			;; 		;; TODO: install server remote???
-			;; 		(add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
-			;; 		;; (lsp-csharp--install-server nil nil)
-			;; 		(funcall callback))
-			;; 	(error (funcall error-callback (error-message-string err)))))
 		    )))
 (use-package yasnippet
   :ensure
@@ -446,6 +438,7 @@
 ;;; ---------------------- General Commands ---------------------------
 
 (defun move-file ()
+  "Move the file this buffer is visiting."
   (interactive)
   (let ((old-name (buffer-file-name)))
 	(if (not (and old-name (file-exists-p old-name)))
@@ -459,6 +452,7 @@
  
 ;; Four space tabs
 (defun four-space-tabs()
+  "Use four-space tabs for indentation."
   (interactive)
   (setq tab-width 4)
   (setq indent-tabs-mode t))
@@ -467,6 +461,7 @@
 (setq tab-stop-list (number-sequence 4 200 4))
  
 (defun c-like-indent()
+  "Use c-style indetation."
   (four-space-tabs)
   (c-set-style "bsd")
   (setq c-basic-offset 4))
@@ -487,3 +482,6 @@
 (add-to-list 'auto-mode-alist '("\\.nuspec$" . xml-mode))
 
 ;;; -------------------------- Final Settings --------------------------
+
+(provide 'init)
+;;; init.el ends here
