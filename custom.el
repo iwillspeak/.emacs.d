@@ -18,7 +18,7 @@
  '(describe-char-unidata-list
    '(name old-name general-category canonical-combining-class decomposition digit-value iso-10646-comment lowercase titlecase))
  '(package-selected-packages
-   '(yasnippet go-mode lsp-mode markdown-mode magit omnisharp multiple-cursors rg company-capf lsp-ui lsp-clients yaml-mode rust-mode fsharp-mode dracula-theme company-lsp lsp-rust elm-mode diminish ponylang-mode request-deferred editorconfig racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme toml-mode powerline neotree leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair))
+   '(babel yasnippet go-mode lsp-mode markdown-mode magit omnisharp multiple-cursors rg company-capf lsp-ui lsp-clients yaml-mode rust-mode fsharp-mode dracula-theme company-lsp lsp-rust elm-mode diminish ponylang-mode request-deferred editorconfig racer llvm-mode suggest doom-themes all-the-icons nlinum powershell company moe-theme toml-mode powerline neotree leerzeichen gruvbox-theme gitignore-mode gitconfig-mode expand-region deft autopair))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
