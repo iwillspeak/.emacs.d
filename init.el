@@ -185,6 +185,12 @@
   :ensure t
   :config (diminish 'visual-line-mode))
 
+;; Writeroom provides a focus mode for single document typing
+(use-package writeroom-mode
+  :ensure t
+  :defer t
+  :bind (([f6] . writeroom-mode)))
+
 ;; We like line numbers, really we do
 (use-package nlinum
   :ensure t
