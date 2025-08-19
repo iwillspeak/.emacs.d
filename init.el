@@ -67,8 +67,6 @@
 (use-package dracula-theme
   :ensure t
   :config (powerline-default-theme))
-(use-package night-owl-theme
-  :ensure t)
 
 ;; Load settings done with custom, do this early so we can depend on the font
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -347,12 +345,9 @@
   :ensure t
   :defer 5
   :bind (("M-s" . magit-status)))
-;; (use-package gitconfig-mode
-;;   :ensure t
-;;   :mode "\\.gitconfig")
-;; (use-package gitignore-mode
-;;   :ensure t
-;;   :mode "\\.gitignore")
+(use-package git-modes
+  :ensure t
+  :mode "\\.(gitignore|gitconfig)")
 (use-package flyspell
   :bind (:map flyspell-mode-map
 			  ("C-;" . nil)))
