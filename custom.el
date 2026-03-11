@@ -15,7 +15,8 @@
 				"#ae81ff" "#66d9ef" "#f5f4f1"] t)
  '(custom-enabled-themes '(night-owl))
  '(custom-safe-themes
-   '("7ce3a35c349be254e82a3c4f0f555639e729ef07cdd1c5c9f0358163eff99fe6"
+   '("0223215a464167d93b9cfef9b1cdf9b0768ab660f33b3068b647f7b12aa453a0"
+	 "7ce3a35c349be254e82a3c4f0f555639e729ef07cdd1c5c9f0358163eff99fe6"
 	 "f99318b4b4d8267a3ee447539ba18380ad788c22d0173fc0986a9b71fd866100"
 	 "274fa62b00d732d093fc3f120aca1b31a6bb484492f31081c1814a858e25c72e"
 	 "e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3"
@@ -29,15 +30,11 @@
 		  decomposition digit-value iso-10646-comment lowercase
 		  titlecase))
  '(package-selected-packages
-   '(all-the-icons autopair babel company company-capf company-lsp deft
-				   diminish doom-themes dracula-theme editorconfig
-				   elm-mode expand-region fsharp-mode git-modes
-				   gitconfig-mode gitignore-mode go-mode gruvbox-theme
-				   leerzeichen llvm-mode lsp-clients lsp-mode lsp-rust
-				   lsp-ui magit markdown-mode moe-theme
-				   multiple-cursors neotree night-owl-theme nlinum
-				   omnisharp ponylang-mode powerline powershell racer
-				   request-deferred rg rust-mode suggest toml-mode
+   '(all-the-icons company deft diminish dracula-theme elm-mode
+				   expand-region flycheck fsharp-mode git-modes
+				   go-mode leerzeichen lsp-mode magit multiple-cursors
+				   neotree night-owl-theme nlinum ponylang-mode
+				   powerline powershell rg rust-mode toml-mode
 				   writeroom-mode yaml-mode yasnippet))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces

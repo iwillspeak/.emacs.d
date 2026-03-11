@@ -64,6 +64,9 @@
 (use-package powerline
   :ensure t
   :defer t)
+(use-package night-owl-theme
+  :ensure t
+  :config (powerline-default-theme))
 (use-package dracula-theme
   :ensure t
   :config (powerline-default-theme))
