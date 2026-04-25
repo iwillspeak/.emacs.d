@@ -30,7 +30,7 @@
 		  decomposition digit-value iso-10646-comment lowercase
 		  titlecase))
  '(package-selected-packages
-   '(all-the-icons company deft diminish dracula-theme elm-mode
+   '(all-the-icons company deft diminish dracula-theme eglot elm-mode
 				   expand-region flycheck fsharp-mode git-modes
 				   go-mode leerzeichen lsp-mode magit multiple-cursors
 				   neotree night-owl-theme nlinum ponylang-mode
