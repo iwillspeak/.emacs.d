@@ -294,7 +294,7 @@
             (lambda ()
               (kill-local-variable 'compile-command)))
   :hook
-  (csharp-mode . eglot-esure))
+  (fsharp-mode . eglot-esure))
 
 (use-package eglot-fsharp
   :ensure t
@@ -407,45 +407,12 @@
   (use-package flycheck-rust
 	:hook (flycheck-mode-hook . flycheck-rust-setup)))
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   ;; :defer t
-;;   :commands lsp
-;;   :diminish lsp-mode
-;;   :bind (:map lsp-mode-map
-;; 			  ("H-." . lsp-find-references)
-;; 			  ("C-." . lsp-execute-code-action))
-;;   :hook ((rust-mode . lsp)
-;; 		 (csharp-mode . lsp)
-;; 		 (fsharp-mode . lsp))
-;;   :config
-;;   ;; (add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
-;;   ;; FIXME: make this client work ...
-;;   (lsp-register-client
-;;    (make-lsp-client :new-connection (lsp-tramp-connection
-;; 									 '("bash" "/home/willspeak/.omnisharp-bin/run" "-lsp"))
-;; 		    :major-modes '(csharp-mode)
-;;                     :remote? t
-;; 		    :server-id 'csharp-remote
-;; 		    :action-handlers (ht ("omnisharp/client/findReferences" 'lsp-csharp--action-client-find-references))
-;; 		    :notification-handlers (ht ("o#/projectadded" 'ignore)
-;;                                                ("o#/projectchanged" 'ignore)
-;;                                                ("o#/projectremoved" 'ignore)
-;;                                                ("o#/packagerestorestarted" 'ignore)
-;;                                                ("o#/msbuildprojectdiagnostics" 'ignore)
-;;                                                ("o#/packagerestorefinished" 'ignore)
-;;                                                ("o#/unresolveddependencies" 'ignore)
-;;                                                ("o#/error" 'lsp-csharp--handle-os-error)
-;;                                                ("o#/projectconfiguration" 'ignore)
-;;                                                ("o#/projectdiagnosticstatus" 'ignore))
-;; 		    )))
-
 (use-package yasnippet
-  :ensure
+  :ensure t
+  :hook ((prog-mode . yas-minor-mode)
+         (text-mode . yas-minor-mode))
   :config
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
-  (add-hook 'text-mode-hook 'yas-minor-mode))
+  (yas-reload-all))
 (use-package toml-mode
   :ensure t
   :mode "\\.toml")
