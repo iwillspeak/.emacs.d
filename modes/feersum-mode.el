@@ -1,28 +1,41 @@
-;;; feersum-mode -- Feersum Prototyping -*- lexical-binding: t -*-
+;;; feersum-mode.el --- Feersum Scheme major mode -*- lexical-binding: t; -*-
 
-;;; commentary:
-;; A simple mode for editing Feersum Scheme files.  Provides a basic
-;; LSP experience
+;;; Commentary:
+;; A simple major mode for editing Feersum Scheme files.
+;; Provides syntax highlighting via scheme-mode and an eglot LSP integration.
 
-;;; code:
+;;; Code:
 
-(define-derived-mode feersum-mode prog-mode "Feersum"
-  "Major mode for Scheme via the Feersum language server.") ; disable built-in keywords
+(require 'eglot)
+(require 'scheme)
+
+;; ─── Customization ────────────────────────────────────────────────────────────
+
+(defgroup feersum nil
+  "Support for the Feersum Scheme language server."
+  :group 'languages
+  :prefix "feersum-")
+
+(defcustom feersum-server-command '("dotnet" "dnx" "Feersum.LanguageServer")
+  "Command to start the Feersum language server.
+Can be overridden to point at a local build, e.g.:
+  (setq feersum-server-command
+        \\='(\"dotnet\" \"/path/to/Feersum.LanguageServer.dll\"))"
+  :type '(repeat string)
+  :group 'feersum)
+
+;; ─── Mode definition ──────────────────────────────────────────────────────────
+
+(define-derived-mode feersum-mode scheme-mode "Feersum"
+  "Major mode for Scheme via the Feersum language server.")
 
 (add-to-list 'auto-mode-alist '("\\.scm\\'" . feersum-mode))
 (add-to-list 'auto-mode-alist '("\\.sld\\'" . feersum-mode))
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs
-               '(feersum-mode
-                 "dotnet"
-				 "dnx"
-				 "Feersum.LanguageServer")))
-;; (with-eval-after-load 'eglot
-;;   (add-to-list 'eglot-server-programs
-;;                '(feersum-mode
-;;                  "dotnet"
-;;                  "/home/will/Repositories/feersum/src/Feersum.LanguageServer/bin/Release/net10.0/Feersum.LanguageServer.dll")))
+;; ─── Eglot integration ────────────────────────────────────────────────────────
+
+(add-to-list 'eglot-server-programs
+             `(feersum-mode . ,(lambda (_) feersum-server-command)))
 
 (add-hook 'feersum-mode-hook #'eglot-ensure)
 
