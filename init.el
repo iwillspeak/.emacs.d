@@ -294,7 +294,7 @@
             (lambda ()
               (kill-local-variable 'compile-command)))
   :hook
-  (fsharp-mode . eglot-esure))
+  (fsharp-mode . eglot-ensure))
 
 (use-package eglot-fsharp
   :ensure t
