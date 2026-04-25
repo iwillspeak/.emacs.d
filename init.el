@@ -1,12 +1,22 @@
+;;; init -- my custom Emacs configuration -*- lexical-binding: t -*-
+
+;;; commentary:
+
+;; A `use-package' based Emacs configuration that has grown over the
+;; years.  At one point it worked on Mac, Windows, and Linux but these
+;; days I only really *nix.
+
+;;; code:
+
 ;;; --------------------- Initial Settings ----------------------------
 
-;; TRAMP settings. Start with these as other modes might want to talk
+;; TRAMP settings.  Start with these as other modes might want to talk
 ;; over TRAMP if we're called to edit a remote file.
-(setq tramp-default-method "ssh")
-(setq tramp-terminal-type "tramp")
+(setq-default tramp-default-method "ssh")
+(setq-default tramp-terminal-type "tramp")
 
 ;; TLS priorities
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(setq-default gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;; reduce startup time by raising the gc threshold
 (setq gc-cons-threshold 100000000)
@@ -28,6 +38,7 @@
 (package-initialize)
 
 (defun do-install ()
+  "Thunk for `use-package' and `bind-key' bootstrap."
   (package-install 'bind-key)
   (package-install 'use-package))
 
@@ -42,7 +53,7 @@
     (require 'use-package))
 
 ;; Next apply any OS Local Settings
-(setq os-local-settings (concat user-emacs-directory "oslocal.el"))
+(defvar os-local-settings (concat user-emacs-directory "oslocal.el"))
 (load os-local-settings)
 
 ;; Load themes from the themes/ directory
@@ -76,21 +87,21 @@
 (load custom-file)
  
 ;; Allow modes to be stored in a subdirectory and automatically loaded
-(setq custom-mode-directory (concat user-emacs-directory "modes"))
+(defvar custom-mode-directory (concat user-emacs-directory "modes"))
 (when (file-directory-p custom-mode-directory)
   (dolist (mode-file
 		   (directory-files custom-mode-directory t "\\-mode\\.el$" t))
 	(load-file mode-file)))
 
 ;; Load in any custom keyboard macros
-(setq custom-macros-directory (concat user-emacs-directory "macros"))
+(defvar custom-macros-directory (concat user-emacs-directory "macros"))
 (when (file-directory-p custom-macros-directory)
   (dolist (macros-file
 		   (directory-files custom-macros-directory t "\\.el$" t))
 	(load-file macros-file)))
  
 ;; Nice size for the default window
-(set 'frame-y-padding
+(defvar frame-y-padding
 	 (if (eq system-type 'windows-nt)
 		 160
 	   120))
@@ -153,10 +164,10 @@
 (setq auto-revert-verbose nil)
 
 ;; Control back up files
-(setq custom-backup-directory (concat user-emacs-directory "backups"))
+(defvar custom-backup-directory (concat user-emacs-directory "backups"))
 (setq backup-directory-alist
 	  `(("." . ,(expand-file-name custom-backup-directory))))
-(setq vc-macke-backup-files t)
+(setq-default vc-macke-backup-files t)
  
 ;; Nicer keybinding for undo
 (global-unset-key (kbd "C-_"))
@@ -176,10 +187,16 @@
 (setq compilation-scroll-output 'first-error)
 
 ;; Setup window splitting when diffing
-(setq ediff-split-window-function 'split-window-horizontally)
+(setq-default ediff-split-window-function 'split-window-horizontally)
 
 ;; Project find file like M-p on Code
 (global-set-key (kbd "M-p") 'project-find-file)
+
+;; Built-in line numbers (Emacs 26+)
+(setq-default display-line-numbers-type t)  ; absolute numbers; use 'relative or 'visual if preferred
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'fundamental-mode-hook #'display-line-numbers-mode)
 
 ;;; ------------------ Load and Set Up All Dem  Packages ------------------
 
@@ -194,21 +211,6 @@
   :defer t
   :bind (([f6] . writeroom-mode)))
 
-;; We like line numbers, really we do
-(use-package nlinum
-  :ensure t
-  :commands nlinum-mode
-  :init (progn (add-hook 'fundamental-mode-hook 'nlinum-mode)
-			   (add-hook 'prog-mode-hook 'nlinum-mode)
-			   (setq nlinum-highlight-current-line t))
-  :config (add-hook 'nlinum-mode-hook
-					(lambda ()
-					  (setq-local nlinum-format
-								  (concat "%" (number-to-string
-											   ;; Guesstimate number of buffer lines.
-											   (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-										  "d")))))
-
 ;; Company for Completion
 (use-package company
   :ensure t
@@ -221,9 +223,9 @@
   ;;         (setq company-minimum-prefix-length 1))
   :diminish company-mode)
 
-(when window-system
-  (use-package company-box
-	:hook (company-mode . company-box-mode)))
+;; (when window-system
+;;   (use-package company-box
+;; 	:hook (company-mode . company-box-mode)))
 
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
@@ -268,43 +270,69 @@
 ;; Automatically Paired Braces
 (electric-pair-mode 1)
 
-;; Omnisharp
-;; (use-package omnisharp
-;;   :ensure t
-;;   :defer t
-;;   :after flycheck
-;;   :init (add-hook 'omnisharp-mode-hook
-;; 				  (lambda ()
-;; 					(setq-local company-backends '(company-omnisharp))
-;; 					(auto-complete-mode -1)))
-;;   :commands omnisharp-mode
-;;   :bind (:map omnisharp-mode-map
-;; 			  ("C-c u" . omnisharp-unit-test-at-point)
-;; 			  ("C-c U" . omnisharp-unit-test-buffer)
-;; 			  ("C-c r" . omnisharp-rename)
-;; 			  ("<f2>" . omnisharp-rename)
-;; 			  ("C-." . omnisharp-run-code-action-refactoring)
-;; 			  ("M-." . omnisharp-go-to-definition)
-;; 			  ("<f12>" . omnisharp-go-to-definition)
-;; 			  ("M-," . omnisharp-find-usages)
-;; 			  ("S-<f12>" . omnisharp-find-usages)))
+;; ─── C# ───────────────────────────────────────────────────────────────────────
+
 (use-package csharp-mode
   :ensure t
   :diminish eldoc-mode
-  :init (add-hook 'csharp-mode-hook
-				  (lambda ()
-					(c-set-offset 'arglist-intro '+)))
-  :mode "\\.\\(cake\\)\\|\\(cs\\)\\$")
+  :mode "\\.\\(cake\\|cs\\)$"
+  :init
+  (add-hook 'csharp-mode-hook
+            (lambda ()
+              (c-set-offset 'arglist-intro '+)))
+  :hook
+  (csharp-mode . eglot-ensure))
+
+;; ─── F# ───────────────────────────────────────────────────────────────────────
 
 (use-package fsharp-mode
   :ensure t
   :defer t
-  :init (add-hook 'fsharp-mode-hook
-				  (lambda ()
-					(nlinum-mode)
-					(kill-local-variable 'compile-command)))
-  :mode "\\.fs[ix]?")
+  :mode "\\.fs[ix]?$"
+  :init
+  (add-hook 'fsharp-mode-hook
+            (lambda ()
+              (kill-local-variable 'compile-command)))
+  :hook
+  (csharp-mode . eglot-esure))
 
+(use-package eglot-fsharp
+  :ensure t
+  :after fsharp-mode
+  :config
+  ;; Let eglot-fsharp manage fsautocomplete rather than a manual install
+  (setq eglot-fsharp-server-install-dir nil))
+
+;; ─── .NET test helpers ────────────────────────────────────────────────────────
+
+(defun my/dotnet-test-at-point ()
+  "Run dotnet test filtered to the symbol at point."
+  (interactive)
+  (compile (format "dotnet test --filter %s" (thing-at-point 'symbol t))))
+
+(defun my/dotnet-test-buffer ()
+  "Run `dotnet test' in the current project."
+  (interactive)
+  (compile "dotnet test"))
+
+;; ─── Eglot (LSP) ──────────────────────────────────────────────────────────────
+(use-package eglot
+  :bind (:map eglot-mode-map
+              ("C-c r"   . eglot-rename)
+              ("<f2>"    . eglot-rename)
+              ("C-."     . eglot-code-actions)
+              ("M-."     . xref-find-definitions)
+              ("<f12>"   . xref-find-definitions)
+              ("M-,"     . xref-find-references)
+              ("S-<f12>" . xref-find-references)
+              ("C-c u"   . my/dotnet-test-at-point)
+              ("C-c U"   . my/dotnet-test-buffer))
+  :config
+  (add-to-list 'eglot-server-programs
+               '(csharp-mode . ("omnisharp" "-lsp")))
+  ;; (add-to-list 'eglot-server-programs
+  ;;              '(fsharp-mode . ("fsautocomplete" "--adaptive-lsp-server-enabled")))
+  )
 
 ;; Notes Buffer Support
 (use-package deft
@@ -379,38 +407,39 @@
   (use-package flycheck-rust
 	:hook (flycheck-mode-hook . flycheck-rust-setup)))
 
-(use-package lsp-mode
-  :ensure t
-  ;; :defer t
-  :commands lsp
-  :diminish lsp-mode
-  :bind (:map lsp-mode-map
-			  ("H-." . lsp-find-references)
-			  ("C-." . lsp-execute-code-action))
-  :hook ((rust-mode . lsp)
-		 (csharp-mode . lsp)
-		 (fsharp-mode . lsp))
-  :config
-  ;; (add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
-  ;; FIXME: make this client work ...
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection
-									 '("bash" "/home/willspeak/.omnisharp-bin/run" "-lsp"))
-		    :major-modes '(csharp-mode)
-                    :remote? t
-		    :server-id 'csharp-remote
-		    :action-handlers (ht ("omnisharp/client/findReferences" 'lsp-csharp--action-client-find-references))
-		    :notification-handlers (ht ("o#/projectadded" 'ignore)
-                                               ("o#/projectchanged" 'ignore)
-                                               ("o#/projectremoved" 'ignore)
-                                               ("o#/packagerestorestarted" 'ignore)
-                                               ("o#/msbuildprojectdiagnostics" 'ignore)
-                                               ("o#/packagerestorefinished" 'ignore)
-                                               ("o#/unresolveddependencies" 'ignore)
-                                               ("o#/error" 'lsp-csharp--handle-os-error)
-                                               ("o#/projectconfiguration" 'ignore)
-                                               ("o#/projectdiagnosticstatus" 'ignore))
-		    )))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   ;; :defer t
+;;   :commands lsp
+;;   :diminish lsp-mode
+;;   :bind (:map lsp-mode-map
+;; 			  ("H-." . lsp-find-references)
+;; 			  ("C-." . lsp-execute-code-action))
+;;   :hook ((rust-mode . lsp)
+;; 		 (csharp-mode . lsp)
+;; 		 (fsharp-mode . lsp))
+;;   :config
+;;   ;; (add-to-list 'tramp-remote-path "/home/willspeak/.omnisharp-bin")
+;;   ;; FIXME: make this client work ...
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-tramp-connection
+;; 									 '("bash" "/home/willspeak/.omnisharp-bin/run" "-lsp"))
+;; 		    :major-modes '(csharp-mode)
+;;                     :remote? t
+;; 		    :server-id 'csharp-remote
+;; 		    :action-handlers (ht ("omnisharp/client/findReferences" 'lsp-csharp--action-client-find-references))
+;; 		    :notification-handlers (ht ("o#/projectadded" 'ignore)
+;;                                                ("o#/projectchanged" 'ignore)
+;;                                                ("o#/projectremoved" 'ignore)
+;;                                                ("o#/packagerestorestarted" 'ignore)
+;;                                                ("o#/msbuildprojectdiagnostics" 'ignore)
+;;                                                ("o#/packagerestorefinished" 'ignore)
+;;                                                ("o#/unresolveddependencies" 'ignore)
+;;                                                ("o#/error" 'lsp-csharp--handle-os-error)
+;;                                                ("o#/projectconfiguration" 'ignore)
+;;                                                ("o#/projectdiagnosticstatus" 'ignore))
+;; 		    )))
+
 (use-package yasnippet
   :ensure
   :config
@@ -479,7 +508,7 @@
 		  (lambda ()
 			(four-space-tabs)
 			(setq indent-tabs-mode nil)
-			(setq python-indent 4)))
+			(setq-local python-indent 4)))
 
 ;; Treat bat files as dos files. Not sure why this isn't default...
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))

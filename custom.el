@@ -1,4 +1,12 @@
+;;; custom -- Variable Customisation for M-x customize -*- lexical-binding: t -*-
+
+;;; commentary:
+;; This is just a persitence store for the customize command.  It shouln't be hand
+;; edited in any way.
+
 ;;; --------------- Don't touch the auto stuff :-p ---------------------
+
+;;; code:
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -29,13 +37,9 @@
    '(name old-name general-category canonical-combining-class
 		  decomposition digit-value iso-10646-comment lowercase
 		  titlecase))
- '(package-selected-packages
-   '(all-the-icons company deft diminish dracula-theme eglot elm-mode
-				   expand-region flycheck fsharp-mode git-modes
-				   go-mode leerzeichen lsp-mode magit multiple-cursors
-				   neotree night-owl-theme nlinum ponylang-mode
-				   powerline powershell rg rust-mode toml-mode
-				   writeroom-mode yaml-mode yasnippet))
+ '(package-selected-packages nil)
+ '(safe-local-variable-values
+   '((fsharp-continuation-offset . 4) (fsharp-indent-offset . 4)))
  '(when (not (facep (aref ansi-term-color-vector 0)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -43,3 +47,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(provide 'custom)
+;;; custom.el ends here

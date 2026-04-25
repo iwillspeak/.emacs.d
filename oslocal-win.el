@@ -1,9 +1,16 @@
-;; any local settings needed
+;;; oslocal-win.el --- Windows/Cygwin local settings -*- lexical-binding: t; -*-
 
-(setq exec-path (cons "c:/tools/cygwin/bin/" exec-path))
+;;; Commentary:
+;; Local settings for Windows/Cygwin environments.
+;; Only loaded when running on Windows with Cygwin.
 
-;; make sure we can deal with Cygwin paths if we are given them
+;;; Code:
+
+(add-to-list 'exec-path "c:/tools/cygwin/bin/")
+
 (use-package cygwin-mount
   :ensure t
-  :if (getenv "CYGWIN")
   :config (cygwin-mount-activate))
+
+(provide 'oslocal-win)
+;;; oslocal-win.el ends here
