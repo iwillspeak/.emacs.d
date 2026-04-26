@@ -352,9 +352,32 @@
   ;;              '(fsharp-mode . ("fsautocomplete" "--adaptive-lsp-server-enabled")))
   )
 
+;; Work around Eglot calling into Emacs 30's project.el on paths that
+;; sometimes trip a nil/string bug during VC project discovery.
+(with-eval-after-load 'eglot
+  (defun my/eglot-current-project-safe (orig)
+    (condition-case err
+        (funcall orig)
+      (wrong-type-argument
+       (if (and (eq (cadr err) 'stringp)
+                (null (caddr err)))
+           `(transient . ,(expand-file-name
+                           (or (ignore-errors (file-truename default-directory))
+                               default-directory)))
+         (signal (car err) (cdr err))))))
+  (advice-add 'eglot--current-project :around #'my/eglot-current-project-safe))
+
 ;; Work around Emacs 30 project.el crashing on symlinked paths when
 ;; VC root discovery fails and `project--vc-merge-submodules-p' sees nil.
 (with-eval-after-load 'project
+  (defun my/project-try-vc-use-truename (orig dir)
+    (funcall orig
+             (if dir
+                 (or (ignore-errors (file-truename dir))
+                     dir)
+               dir)))
+  (advice-add 'project-try-vc :around #'my/project-try-vc-use-truename)
+
   (defun my/project-vc-merge-submodules-p-safe (orig dir)
     (if dir
         (funcall orig dir)
