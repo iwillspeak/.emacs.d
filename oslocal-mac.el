@@ -1,4 +1,4 @@
-;;; oslocal-mac -- macOS Specific Initialisation -*- lexical-binding: t -*-
+;;; oslocal-mac.el --- macOS-specific initialisation -*- lexical-binding: t; -*-
 
 ;;; commentary:
 ;; Mac settings.  This generally resolves around ensuring that macOS keys line

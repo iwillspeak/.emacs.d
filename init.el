@@ -1,4 +1,4 @@
-;;; init -- my custom Emacs configuration -*- lexical-binding: t -*-
+;;; init.el --- My custom Emacs configuration -*- lexical-binding: t; -*-
 
 ;;; commentary:
 
@@ -189,9 +189,6 @@
 ;; Setup window splitting when diffing
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
-;; Project find file like M-p on Code
-(global-set-key (kbd "M-p") 'project-find-file)
-
 ;; Built-in line numbers (Emacs 26+)
 (setq-default display-line-numbers-type t)  ; absolute numbers; use 'relative or 'visual if preferred
 
@@ -211,21 +208,42 @@
   :defer t
   :bind (([f6] . writeroom-mode)))
 
-;; Company for Completion
-(use-package company
+;; Corfu for Completion
+(use-package corfu
   :ensure t
-  :hook ((rust-mode . company-mode)
-		 (csharp-mode . company-mode)
-		 (fsharp-mode . company-mode)
-		 (omnisharp-mode-hook . company-mode))
-  :commands company-mode
-  ;; :config (setq company-tooltip-align-annotations t)
-  ;;         (setq company-minimum-prefix-length 1))
-  :diminish company-mode)
+  :init
+  (global-corfu-mode)       ; enable everywhere
+  (corfu-history-mode)      ; remember recently used candidates
+  (corfu-popupinfo-mode)    ; show docs in a side popup (like VS Code's detail panel)
+  :custom
+  (corfu-auto t)            ; trigger automatically as you type (VS Code default)
+  (corfu-auto-delay 0.2)    ; seconds before popup appears; VS Code is ~0.1-0.3
+  (corfu-auto-prefix 2)     ; minimum characters before triggering
+  (corfu-count 10)          ; number of candidates shown
+  (corfu-cycle t)           ; wrap around at top/bottom of list
+  (corfu-preselect 'first)  ; pre-select first candidate, like VS Code
+  (corfu-on-exact-match nil); don't auto-insert on single match — let you confirm
+  (corfu-quit-no-match t)   ; dismiss popup if nothing matches
+  (corfu-popupinfo-delay '(0.3 . 0.1)) ; doc popup: (initial . subsequent) delay
+  ;; :bind (:map corfu-map
+  ;;             ("TAB"     . corfu-next)     ; Tab cycles like VS Code
+  ;;             ([tab]     . corfu-next)
+  ;;             ("S-TAB"   . corfu-previous)
+  ;;             ([backtab] . corfu-previous)
+  ;;             ("RET"     . corfu-insert)   ; Enter confirms
+  ;;             ("M-d"     . corfu-popupinfo-toggle)) ; toggle doc panel
+  :diminish corfu-mode)
 
-;; (when window-system
-;;   (use-package company-box
-;; 	:hook (company-mode . company-box-mode)))
+;; (use-package vertico
+;;   :ensure t
+;;   :init
+;;   (vertico-mode))
+
+;; Adds annotations (type info, doc strings) alongside candidates
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
 
 ;; Bind expand region, pretty useful key combination
 (use-package expand-region
@@ -258,7 +276,7 @@
   (setq whitespace-style '(face trailing empty space-before-tab))
   (setq whitespace-trailing-regexp "\\>[^\t \n]*\\([ \t]+\\)$")
   :defer 3
-  :diminish global-whitespace-mode
+  :diminish whitespace-mode
   :config
   (global-whitespace-mode t))
 
@@ -334,6 +352,16 @@
   ;;              '(fsharp-mode . ("fsautocomplete" "--adaptive-lsp-server-enabled")))
   )
 
+;; Work around Emacs 30 project.el crashing on symlinked paths when
+;; VC root discovery fails and `project--vc-merge-submodules-p' sees nil.
+(with-eval-after-load 'project
+  (defun my/project-vc-merge-submodules-p-safe (orig dir)
+    (if dir
+        (funcall orig dir)
+      project-vc-merge-submodules))
+  (advice-add 'project--vc-merge-submodules-p
+              :around #'my/project-vc-merge-submodules-p-safe))
+
 ;; Notes Buffer Support
 (use-package deft
   :ensure t
@@ -402,10 +430,12 @@
 
 (use-package flycheck
   :ensure t
-  :hook (prog-mode . flycheck-mode)
-  :config
-  (use-package flycheck-rust
-	:hook (flycheck-mode-hook . flycheck-rust-setup)))
+  :hook (prog-mode . flycheck-mode))
+
+(use-package flycheck-rust
+  :ensure t
+  :after (flycheck rust-mode)
+  :hook (flycheck-mode . flycheck-rust-setup))
 
 (use-package yasnippet
   :ensure t

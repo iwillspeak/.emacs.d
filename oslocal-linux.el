@@ -1,4 +1,4 @@
-;;; oslocal-linux -- Linux Specific Initialisation -*- lexical-binding: t -*-
+;;; oslocal-linux.el --- Linux-specific initialisation -*- lexical-binding: t; -*-
 
 ;;; commentary:
 ;; Linux settings

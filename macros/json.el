@@ -1,4 +1,4 @@
-;; json -- Simple Json Tools -*- lexical-binding: t -*-
+;;; json.el --- Simple JSON tools -*- lexical-binding: t; -*-
 
 ;;; commentary:
 

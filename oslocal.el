@@ -1,4 +1,4 @@
-;;; oslocal -- Dispatches to a Local OS Settings Override -*- lexical-binding: t -*-
+;;; oslocal.el --- Dispatch to a local OS settings override -*- lexical-binding: t; -*-
 
 ;;; commentary:
 ;; any local settings needed

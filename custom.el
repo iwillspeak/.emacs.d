@@ -1,4 +1,4 @@
-;;; custom -- Variable Customisation for M-x customize -*- lexical-binding: t -*-
+;;; custom.el --- Variable customisation for M-x customize -*- lexical-binding: t; -*-
 
 ;;; commentary:
 ;; This is just a persitence store for the customize command.  It shouln't be hand
@@ -37,10 +37,16 @@
    '(name old-name general-category canonical-combining-class
 		  decomposition digit-value iso-10646-comment lowercase
 		  titlecase))
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons corfu deft diminish dracula-theme eglot-fsharp
+				   elm-mode exec-path-from-shell expand-region
+				   flycheck-rust git-modes go-mode leerzeichen
+				   lsp-mode magit marginalia multiple-cursors neotree
+				   night-owl-theme nlinum ponylang-mode powerline
+				   powershell rg rust-mode toml-mode vertico
+				   writeroom-mode yaml-mode yasnippet))
  '(safe-local-variable-values
-   '((fsharp-continuation-offset . 4) (fsharp-indent-offset . 4)))
- '(when (not (facep (aref ansi-term-color-vector 0)))))
+   '((fsharp-continuation-offset . 4) (fsharp-indent-offset . 4))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
